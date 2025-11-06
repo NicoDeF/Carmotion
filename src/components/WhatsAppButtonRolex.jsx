@@ -66,7 +66,7 @@ const WhatsAppButtonRolex = () => {
           className="text-xs tracking-[0.2em] font-light"
           style={{ fontFamily: 'serif' }}
         >
-          CONTACTO DIRECTO
+          Contactarnos
         </span>
       </motion.div>
     </motion.a>

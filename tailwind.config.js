@@ -16,6 +16,7 @@ export default {
       },
       fontFamily: {
         sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        audiowide: ['"Audiowide"', 'sans-serif'],
       },
     },
   },
