@@ -8,16 +8,70 @@ const ContactRolex = () => {
     phone: '',
     message: '',
   });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Gracias por su interés. Un asesor se contactará en breve.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
-  };
+  const [status, setStatus] = useState('idle'); // idle, sending, success, error
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Validar
+    if (!formData.name || !formData.email || !formData.phone) {
+      alert('⚠️ Por favor complete todos los campos obligatorios');
+      return;
+    }
+    
+    if (!formData.email.includes('@')) {
+      alert('⚠️ Por favor ingrese un email válido');
+      return;
+    }
+    
+    setStatus('sending');
+    
+    try {
+      // CAMBIAR 'xpznqwer' POR TU FORM ID DE FORMSPREE
+      const response = await fetch('https://formspree.io/f/mnnoeoow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message || 'Sin mensaje adicional',
+          _subject: `Nuevo consulta CARMOTION - ${formData.name}`,
+        }),
+      });
+      
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        
+        // Google Analytics (si lo tienes)
+        if (window.gtag) {
+          window.gtag('event', 'form_submit', {
+            event_category: 'contact',
+            event_label: 'contact_form',
+          });
+        }
+        
+        // Opcional: También notificar por WhatsApp
+        const whatsappMsg = `Nuevo contacto: ${formData.name} - ${formData.email}`;
+        // Descomentar si quieres notificación automática:
+        // window.open(`https://wa.me/5491123456789?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+        
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        throw new Error('Error al enviar');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   return (
@@ -42,6 +96,37 @@ const ContactRolex = () => {
           </p>
         </motion.div>
 
+        {/* Status Messages */}
+        {status === 'success' && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 p-6 border border-green-500/30 bg-green-500/10 text-center"
+          >
+            <p className="text-green-400 text-sm tracking-wider">
+              ✅ MENSAJE ENVIADO CORRECTAMENTE
+            </p>
+            <p className="text-gray-400 text-xs mt-2">
+              Nos contactaremos a la brevedad
+            </p>
+          </motion.div>
+        )}
+
+        {status === 'error' && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 p-6 border border-red-500/30 bg-red-500/10 text-center"
+          >
+            <p className="text-red-400 text-sm tracking-wider">
+              ❌ ERROR AL ENVIAR
+            </p>
+            <p className="text-gray-400 text-xs mt-2">
+              Por favor intente nuevamente
+            </p>
+          </motion.div>
+        )}
+
         {/* Form */}
         <motion.form
           initial={{ opacity: 0, y: 50 }}
@@ -53,7 +138,7 @@ const ContactRolex = () => {
         >
           <div>
             <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
-              NOMBRE COMPLETO
+              NOMBRE COMPLETO *
             </label>
             <input
               type="text"
@@ -61,14 +146,15 @@ const ContactRolex = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors"
+              disabled={status === 'sending'}
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors disabled:opacity-50"
               placeholder="Juan Pérez"
             />
           </div>
 
           <div>
             <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
-              CORREO ELECTRÓNICO
+              CORREO ELECTRÓNICO *
             </label>
             <input
               type="email"
@@ -76,14 +162,15 @@ const ContactRolex = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors"
+              disabled={status === 'sending'}
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors disabled:opacity-50"
               placeholder="correo@ejemplo.com"
             />
           </div>
 
           <div>
             <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
-              TELÉFONO
+              TELÉFONO *
             </label>
             <input
               type="tel"
@@ -91,21 +178,23 @@ const ContactRolex = () => {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors"
+              disabled={status === 'sending'}
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors disabled:opacity-50"
               placeholder="+54 11 1234-5678"
             />
           </div>
 
           <div>
             <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
-              MENSAJE
+              CONSULTA (OPCIONAL)
             </label>
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
               rows="4"
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors resize-none"
+              disabled={status === 'sending'}
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors resize-none disabled:opacity-50"
               placeholder="Cuéntenos sobre su vehículo..."
             />
           </div>
@@ -113,9 +202,10 @@ const ContactRolex = () => {
           <div className="pt-8">
             <button
               type="submit"
-              className="w-full border border-white/30 text-white text-sm tracking-[0.3em] font-light py-6 hover:bg-white hover:text-black transition-all duration-500"
+              disabled={status === 'sending'}
+              className="w-full border border-white/30 text-white text-sm tracking-[0.3em] font-light py-6 hover:bg-white hover:text-black transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              SOLICITAR ASESORAMIENTO
+              {status === 'sending' ? 'ENVIANDO...' : 'SOLICITAR ASESORAMIENTO'}
             </button>
           </div>
         </motion.form>
@@ -133,13 +223,25 @@ const ContactRolex = () => {
               <p className="text-xs tracking-[0.3em] text-gray-500 mb-3 font-light">
                 TELÉFONO
               </p>
-              <p className="text-white font-light">+54 11 1234-5678</p>
+              <a 
+                href="https://wa.me/5491123456789"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white font-light hover:text-gray-300 transition-colors"
+              >
+                +54 11 1234-5678
+              </a>
             </div>
             <div>
               <p className="text-xs tracking-[0.3em] text-gray-500 mb-3 font-light">
                 CORREO
               </p>
-              <p className="text-white font-light">info@carmotion.com.ar</p>
+              <a 
+                href="mailto:contacto@carmotion.com.ar"
+                className="text-white font-light hover:text-gray-300 transition-colors"
+              >
+                info@carmotion.com.ar
+              </a>
             </div>
             <div>
               <p className="text-xs tracking-[0.3em] text-gray-500 mb-3 font-light">
