@@ -5,6 +5,7 @@ import HowItWorksRolex from './components/HowItWorksRolex';
 import GalleryRolex from './components/GalleryRolex';
 import ContactRolex from './components/ContactRolex';
 import FooterRolex from './components/FooterRolex';
+import VideoShowcaseRolex from './components/VideoShowcaseRolex';
 import WhatsAppButtonRolex from './components/WhatsAppButtonRolex';
 
 
@@ -14,6 +15,7 @@ function AppRolex() {
       <HeaderRolex />
       <HeroRolex />
       <ProductShowcaseRolex />
+      <VideoShowcaseRolex /> 
       <HowItWorksRolex />
       <GalleryRolex />
       <ContactRolex />
