@@ -32,7 +32,7 @@ const ContactRolex = () => {
           className="text-center mb-24"
         >
           <h2 
-            className="text-5xl md:text-7xl font-light tracking-[0.2em] mb-8 text-white"
+            className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4"
             style={{ fontFamily: 'serif' }}
           >
             CONTACTO
@@ -128,7 +128,7 @@ const ContactRolex = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className="mt-24 pt-24 border-t border-white/10"
         >
-          <div className="grid md:grid-cols-3 gap-12 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center">
             <div>
               <p className="text-xs tracking-[0.3em] text-gray-500 mb-3 font-light">
                 TELÉFONO

@@ -34,7 +34,7 @@ const HowItWorksRolex = () => {
           className="text-center mb-32"
         >
           <h2 
-            className="text-5xl md:text-7xl font-light tracking-[0.2em] mb-8 text-white"
+          className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4"
             style={{ fontFamily: 'serif' }}
           >
             SIMPLICIDAD
@@ -85,7 +85,7 @@ const HowItWorksRolex = () => {
                       PASO {step.number}
                     </span>
                     <h3 
-                      className="text-4xl md:text-5xl font-light tracking-[0.2em] mb-8 text-white"
+  className="text-2xl md:text-4xl lg:text-5xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white"
                       style={{ fontFamily: 'serif' }}
                     >
                       {step.title}

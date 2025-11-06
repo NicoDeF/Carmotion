@@ -49,12 +49,12 @@ const ProductShowcaseRolex = () => {
           className="text-center mb-32"
         >
           <h2 
-            className="text-5xl md:text-7xl font-light tracking-[0.2em] mb-8 text-white"
-            style={{ fontFamily: 'serif' }}
+          className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4"
+          style={{ fontFamily: 'serif' }}
           >
             PRECISIÓN ABSOLUTA
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
+          <p className="text-base md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light tracking-wide px-6">
             Cada elemento de CARMOTION ha sido diseñado con la máxima atención al detalle.
             Una fusión perfecta entre ingeniería aeronáutica y elegancia contemporánea.
           </p>

@@ -20,7 +20,7 @@ const WhatsAppButtonRolex = () => {
       transition={{ delay: 3, duration: 1, type: 'spring' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="fixed bottom-12 right-12 z-50 group"
+      className="fixed bottom-6 right-6 md:bottom-12 md:right-12 z-50 group"
     >
       {/* Button Container */}
       <motion.div
@@ -42,9 +42,9 @@ const WhatsAppButtonRolex = () => {
         />
         
         {/* Main Button - Estilo Rolex */}
-        <div className="relative w-20 h-20 bg-white hover:bg-gray-100 rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 border border-white/20">
+        <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white hover:bg-gray-100 rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 border border-white/20">
           <svg
-            className="w-11 h-11 text-green-600"
+            className="w-8 h-8 md:w-11 md:h-11 text-green-600"
             fill="currentColor"
             viewBox="0 0 24 24"
           >

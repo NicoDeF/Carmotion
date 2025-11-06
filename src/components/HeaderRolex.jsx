@@ -30,7 +30,7 @@ const HeaderRolex = () => {
           : 'bg-transparent'
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-12">
+      <nav className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <motion.div 

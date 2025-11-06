@@ -75,14 +75,14 @@ const HeroRolex = () => {
               transition={{ duration: 1, ease: 'easeOut' }}
             >
               <motion.h1 
-                className="text-7xl md:text-9xl font-light tracking-[0.3em] mb-8 text-white"
-                style={{ fontFamily: 'serif' }}
+              className="text-4xl md:text-7xl lg:text-9xl font-light tracking-[0.2em] md:tracking-[0.3em] mb-8 text-white px-4"
+              style={{ fontFamily: 'serif' }}
               >
                 {slides[currentSlide].title}
               </motion.h1>
               
               <motion.p 
-                className="text-2xl md:text-3xl font-light tracking-[0.2em] text-gray-300"
+                className="text-lg md:text-2xl lg:text-3xl font-light tracking-[0.15em] md:tracking-[0.2em] text-gray-300 px-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1 }}
