@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import logo from '/dist/images/logosinletras.png'
+import logo from '/dist/images/logosinletras.png';
 
 const HeaderRolex = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -26,27 +24,29 @@ const HeaderRolex = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled 
-    ? 'bg-[#343438] backdrop-blur-xl border-b border-white/10' 
-    : 'bg-[#343438]'
-    }`}>
+        scrolled
+          ? 'bg-[#343438] backdrop-blur-xl border-b border-white/10'
+          : 'bg-[#343438]'
+      }`}
+    >
+      <nav className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex items-center justify-between h-20 md:h-24">
 
-        <nav className="max-w-7xl mx-auto px-2 md:px-4 lg:px-6">
-        <div className="flex items-center justify-between h-24">
-          
           {/* Logo + Texto */}
-          <motion.div 
-           className="flex items-center space-x-3 cursor-pointer ml-[-0.5rem] md:ml-[-1rem]"
-           whileHover={{ scale: 1.05 }}
+          <motion.div
+            className="flex items-center space-x-3 cursor-pointer"
+            whileHover={{ scale: 1.05 }}
           >
-            <img 
-              src={logo} 
-              alt="CARMOTION Logo" 
-              className="h-20 md:h-24 lg:h-28 w-auto object-contain transition-transform duration-300"
-              style={{ marginRight: '0.3rem', filter: 'brightness(0.85) contrast(1.2)', }}/>
-            <span 
-              className="text-3xl tracking-[0.25em] font-normal font-audiowide text-white"
-            >
+            <img
+              src={logo}
+              alt="CARMOTION Logo"
+              className="h-12 w-auto md:h-16 object-contain transition-transform duration-300"
+              style={{
+                filter: 'brightness(0.85) contrast(1.2)',
+              }}
+            />
+            {/* Ocultamos el texto en pantallas chicas */}
+            <span className="hidden sm:block text-2xl md:text-3xl tracking-[0.25em] font-normal font-audiowide text-white">
               CARMOTION
             </span>
           </motion.div>
