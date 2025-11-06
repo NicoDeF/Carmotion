@@ -91,9 +91,6 @@ const ContactRolex = () => {
           >
             CONTACTO
           </h2>
-          <p className="text-sm tracking-[0.3em] text-gray-500 font-light">
-            EXCLUSIVO PARA CLIENTES SELECTOS
-          </p>
         </motion.div>
 
         {/* Status Messages */}
@@ -128,14 +125,14 @@ const ContactRolex = () => {
         )}
 
         {/* Form */}
-        <motion.form
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          onSubmit={handleSubmit}
-          className="space-y-8"
-        >
+    <motion.form
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1 }}
+      onSubmit={handleSubmit}
+      className="space-y-8 border border-white/40 p-10 md:p-14 shadow-[0_0_40px_rgba(255,255,255,0.15)]"
+      >
           <div>
             <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
               NOMBRE COMPLETO *
@@ -186,7 +183,7 @@ const ContactRolex = () => {
 
           <div>
             <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
-              CONSULTA (OPCIONAL)
+              CONSULTA
             </label>
             <textarea
               name="message"
