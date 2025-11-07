@@ -12,12 +12,12 @@ const FooterRolex = () => {
           className="text-center mb-16"
         >
           <h3 
-            className="text-4xl font-light tracking-[0.3em] text-white mb-6"
+            className="text-4xl font-light tracking-[0.3em] text-white mb-6 font-playfair"
             style={{ fontFamily: 'serif' }}
           >
             CARMOTION
           </h3>
-          <p className="text-xs tracking-[0.3em] text-gray-500 font-light">
+          <p className="text-xs tracking-[0.3em] text-gray-500 font-light font-playfair">
             PROTECCIÓN PREMIUM DESDE 2020
           </p>
         </motion.div>
@@ -30,17 +30,17 @@ const FooterRolex = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#galeria" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#galeria" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Premium
                 </a>
               </li>
               <li>
-                <a href="#galeria" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#galeria" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Professional
                 </a>
               </li>
               <li>
-                <a href="#galeria" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#galeria" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Executive
                 </a>
               </li>
@@ -48,22 +48,22 @@ const FooterRolex = () => {
           </div>
 
           <div>
-            <h4 className="text-xs tracking-[0.3em] text-gray-500 mb-6 font-light">
+            <h4 className="text-xs tracking-[0.3em] text-gray-500 mb-6 font-light font-playfair">
               SERVICIOS
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Instalación
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Mantenimiento
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Garantía
                 </a>
               </li>
@@ -71,22 +71,22 @@ const FooterRolex = () => {
           </div>
 
           <div>
-            <h4 className="text-xs tracking-[0.3em] text-gray-500 mb-6 font-light">
+            <h4 className="text-xs tracking-[0.3em] text-gray-500 mb-6 font-light font-playfair">
               EMPRESA
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Acerca de
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Historia
                 </a>
               </li>
               <li>
-                <a href="#contacto" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#contacto" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Contacto
                 </a>
               </li>
@@ -94,22 +94,22 @@ const FooterRolex = () => {
           </div>
 
           <div>
-            <h4 className="text-xs tracking-[0.3em] text-gray-500 mb-6 font-light">
+            <h4 className="text-xs tracking-[0.3em] text-gray-500 mb-6 font-light font-playfair">
               LEGAL
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Términos
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Privacidad
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light">
+                <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors font-light font-playfair">
                   Cookies
                 </a>
               </li>
@@ -123,7 +123,7 @@ const FooterRolex = () => {
             <a
               key={social}
               href="#"
-              className="text-xs tracking-[0.2em] text-gray-500 hover:text-white transition-colors font-light"
+              className="text-xs tracking-[0.2em] text-gray-500 hover:text-white transition-colors font-light font-playfair"
             >
               {social}
             </a>
@@ -132,7 +132,7 @@ const FooterRolex = () => {
 
         {/* Copyright */}
         <div className="text-center">
-          <p className="text-xs tracking-[0.2em] text-gray-600 font-light">
+          <p className="text-xs tracking-[0.2em] text-gray-600 font-light font-playfair">
             © 2025 CARMOTION ARGENTINA. TODOS LOS DERECHOS RESERVADOS.
           </p>
         </div>

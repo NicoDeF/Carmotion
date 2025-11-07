@@ -75,14 +75,14 @@ const HeroRolex = () => {
               transition={{ duration: 1, ease: 'easeOut' }}
             >
               <motion.h1 
-              className="text-4xl md:text-7xl lg:text-9xl font-light tracking-[0.2em] md:tracking-[0.3em] mb-8 text-white px-4"
+              className="text-4xl md:text-7xl lg:text-9xl font-light tracking-[0.2em] md:tracking-[0.3em] mb-8 text-white px-4 font-playfair"
               style={{ fontFamily: 'serif' }}
               >
                 {slides[currentSlide].title}
               </motion.h1>
               
               <motion.p 
-                className="text-lg md:text-2xl lg:text-3xl font-light tracking-[0.15em] md:tracking-[0.2em] text-gray-300 px-4"
+                className="text-lg md:text-2xl lg:text-3xl font-light tracking-[0.15em] md:tracking-[0.2em] text-gray-300 px-4 font-playfair"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1 }}
@@ -91,21 +91,6 @@ const HeroRolex = () => {
               </motion.p>
             </motion.div>
           </AnimatePresence>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="mt-16"
-          >
-            <a 
-              href="#discover"
-              className="inline-block px-12 py-4 border border-white/30 text-white text-sm tracking-[0.3em] font-light hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-sm"
-            >
-              DESCUBRIR
-            </a>
-          </motion.div>
         </div>
       </div>
 
@@ -118,10 +103,10 @@ const HeroRolex = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2"
+          className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2 font-playfair"
         >
           <motion.div 
-            className="w-1.5 h-1.5 bg-white rounded-full"
+            className="w-1.5 h-1.5 bg-white rounded-full font-playfair"
             animate={{ y: [0, 16, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
