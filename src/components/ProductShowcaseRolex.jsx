@@ -3,19 +3,29 @@ import { motion } from 'framer-motion';
 const ProductShowcaseRolex = () => {
   const features = [
     {
-      title: 'ALUMINIO AERONÁUTICO',
-      description: 'Aleación grado aviación con resistencia certificada a condiciones extremas.',
+      title: 'ACERO INOXIDABLE',
+      description: 'Construido para perdurar. Su estructura combina resistencia avanzada y protección total frente a los elementos, asegurando una presencia impecable incluso en las condiciones más extremas.',
       number: '01',
     },
     {
-      title: 'SISTEMA INTELIGENTE',
-      description: 'Despliegue automatizado en menos de 5 minutos mediante pistones de gas.',
+      title: 'LONA OXFORD 600D',
+      description: 'Confeccionada en tela Oxford 600D premium, diseñada para resistir la lluvia, el sol y el granizo. Su composición impermeable y anti-UV ofrece una protección total y duradera en cualquier entorno.',
       number: '02',
     },
     {
-      title: 'GARANTÍA EXTENDIDA',
-      description: '10 años de protección respaldada por ingeniería de precisión suiza.',
+    title: 'MEDIDAS DISPONIBLES',
+      description: 'Diseñadas para autos y camionetas, nuestras cubiertas se adaptan con precisión a distintos tamaños y estilos de vehículo.',
       number: '03',
+      },
+    {
+      title: 'SISTEMA HIDRAULICO',
+      description: 'Gracias a su mecanismo hidráulico, la apertura y el cierre se realizan de manera rápida y sencilla, sin necesidad de esfuerzo manual.',
+      number: '04',
+    },
+    {
+      title: 'CONSTRUIDA PARA DURAR',
+      description: 'La estructura soporta hasta 300 kg y puede anclarse firmemente al piso, ofreciendo máxima seguridad y estabilidad durante su uso.',
+      number: '05',
     },
   ];
 
@@ -46,17 +56,17 @@ const ProductShowcaseRolex = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="text-center mb-32"
+          className="text-center mb-32 font-playfair"
         >
           <h2 
-          className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4"
+          className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-playfair"
           style={{ fontFamily: 'serif' }}
           >
-            PRECISIÓN ABSOLUTA
+            CUIDA LO QUE TE MOVILIZA.
           </h2>
-          <p className="text-base md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light tracking-wide px-6">
+          <p className="text-base md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light tracking-wide px-6 font-playfair">
             Cada elemento de CARMOTION ha sido diseñado con la máxima atención al detalle.
-            Una fusión perfecta entre ingeniería aeronáutica y elegancia contemporánea.
+            Una fusión perfecta entre ingeniería  y elegancia.
           </p>
         </motion.div>
 
@@ -72,17 +82,17 @@ const ProductShowcaseRolex = () => {
               className="text-center group"
             >
               <div className="mb-8 relative">
-                <span className="text-8xl font-light text-white/5 absolute left-1/2 transform -translate-x-1/2 -top-4 group-hover:text-white/10 transition-colors duration-700">
+                <span className="text-8xl font-light text-white/5 absolute left-1/2 transform -translate-x-1/2 -top-4 group-hover:text-white/10 transition-colors duration-700 font-playfair">
                   {feature.number}
                 </span>
-                <span className="text-2xl font-light text-white/30 relative z-10">
+                <span className="text-2xl font-light text-white/30 relative z-10 font-playfair">
                   {feature.number}
                 </span>
               </div>
-              <h3 className="text-sm tracking-[0.3em] mb-6 text-white font-light">
+              <h3 className="text-sm tracking-[0.3em] mb-6 text-white font-light font-playfair">
                 {feature.title}
               </h3>
-              <p className="text-gray-500 leading-relaxed font-light">
+              <p className="text-gray-500 leading-relaxed font-light font-playfair">
                 {feature.description}
               </p>
             </motion.div>

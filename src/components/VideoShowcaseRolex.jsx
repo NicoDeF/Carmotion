@@ -37,7 +37,7 @@ const VideoShowcaseRolex = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black"
+      className="relative w-full min-h-screen flex items-end overflow-hidden bg-black"
     >
       {/* Video Background */}
       <motion.video
@@ -52,45 +52,52 @@ const VideoShowcaseRolex = () => {
           opacity,
           filter: "brightness(0.65) contrast(1.1) saturate(1.1)",
         }}
-        className="absolute top-0 left-0 w-full h-full object-cover blur-sm motion-safe:blur-0 transition-all duration-1000"
+        className="absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000"
       />
 
-      {/* Overlay oscuro y elegante */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 pointer-events-none" />
+      {/* Overlay oscuro con degradado más fuerte hacia abajo */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/95 pointer-events-none" />
 
-      {/* Contenido */}
-      <div className="relative z-10 text-center px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.2em] text-white mb-6"
-          style={{ fontFamily: "serif" }}
-        >
-          DESCUBRA MÁS
-        </motion.h2>
+      {/* Contenido en la parte inferior */}
+      <div className="relative z-10 w-full pb-12 md:pb-16 lg:pb-20 px-6">
+        <div className="max-w-5xl mx-auto text-center space-y-8 md:space-y-10">
+          {/* Texto: PROTECCIÓN EN ACCIÓN */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-gray-200 text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] font-light font-playfair"
+            style={{
+              textShadow: '0 2px 10px rgba(0,0,0,0.8)',
+            }}
+          >
+            PROTECCIÓN EN ACCIÓN
+          </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="text-gray-400 text-sm md:text-base tracking-[0.3em] mb-12 font-light"
-        >
-          PROTECCIÓN EN ACCIÓN
-        </motion.p>
-
-        <motion.a
-          href="#contacto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="inline-block border border-white/30 text-white text-xs md:text-sm tracking-[0.3em] font-light px-12 py-4 hover:bg-white hover:text-black transition-all duration-500"
-        >
-          SOLICITAR INFORMACIÓN
-        </motion.a>
+          {/* Botón: SOLICITAR INFORMACIÓN */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <motion.a
+              href="#contacto"
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: '0 0 30px rgba(255,255,255,0.3)',
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block border-2 border-white/90 rounded-full text-white text-xs md:text-sm tracking-[0.25em] font-medium px-14 py-5 hover:bg-white hover:text-black transition-all duration-500 shadow-xl backdrop-blur-sm font-playfair"
+              style={{
+                boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+              }}
+            >
+              SOLICITAR INFORMACIÓN
+            </motion.a>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -86,11 +86,12 @@ const ContactRolex = () => {
           className="text-center mb-24"
         >
           <h2 
-            className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4"
+            className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-playfair"
             style={{ fontFamily: 'serif' }}
           >
             CONTACTO
           </h2>
+
         </motion.div>
 
         {/* Status Messages */}
