@@ -1,10 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const HowItWorksRolex = () => {
   const videoRef = useRef(null);
   const videoSectionRef = useRef(null);
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   const steps = [
     {
@@ -16,43 +15,25 @@ const HowItWorksRolex = () => {
     {
       number: 'II',
       title: 'DESPLEGAR',
-      description: 'El sistema de pistones de gas despliega la estructura de aluminio aeronáutico en minutos.',
-      image: '/images/_MG_3152.jpg',
+      description: 'El sistema hidráulico despliega el covertor en segundos.',
+      image: '/images/_MG_3347.jpg',
     },
     {
       number: 'III',
       title: 'PROTEGER',
       description: 'Protección total activada. Resistencia certificada contra elementos extremos.',
-      image: '/images/_MG_3271.jpg',
+      image: '/images/_MG_3338_1.jpg',
     },
   ];
 
-  // Textos que aparecerán sobre el video
-  const videoTexts = [
-    {
-      title: "ALUMINIO AERONÁUTICO",
-      subtitle: "Tecnología de la industria aeroespacial",
-    },
-    {
-      title: "RESISTENCIA EXTREMA",
-      subtitle: "Certificado contra vientos de 80 km/h",
-    },
-    {
-      title: "CONTROL REMOTO",
-      subtitle: "Despliegue automático inteligente",
-    },
-  ];
-
-  // Parallax para el video
   const { scrollYProgress } = useScroll({
     target: videoSectionRef,
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1, 1.1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.05]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-  // Auto-play del video
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -72,43 +53,12 @@ const HowItWorksRolex = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Cambiar texto del video cada 4 segundos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % videoTexts.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section id="como-funciona" className="bg-black">
-      {/* Título principal - SIN padding superior, pegado al video anterior */}
-      <div className="pt-0 pb-16 md:pb-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="text-center"
-          >
-            <h2 
-              className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-playfair"
-            >
-              SIMPLICIDAD
-            </h2>
-            <p className="text-sm tracking-[0.3em] text-gray-500 font-light font-playfair">
-              TRES PASOS HACIA LA PERFECCIÓN
-            </p>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Video Section con textos estilo Rolex GMT */}
+      {/* Video Section con título integrado */}
       <div
         ref={videoSectionRef}
-        className="relative w-full h-screen overflow-hidden"
+        className="relative w-full min-h-screen overflow-hidden"
       >
         {/* Video Background con parallax */}
         <motion.video
@@ -118,108 +68,101 @@ const HowItWorksRolex = () => {
           muted
           playsInline
           preload="auto"
-          style={{
-            scale,
-            opacity,
-          }}
+          style={{ scale, opacity }}
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
 
-        {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/60 pointer-events-none" />
+        {/* Overlay gradient suave */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80 pointer-events-none" />
 
-        {/* Textos animados estilo Rolex GMT */}
-        <div className="relative z-10 h-full flex items-center justify-center px-6">
-          <div className="text-center max-w-4xl">
-            {videoTexts.map((text, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
-                  opacity: currentTextIndex === index ? 1 : 0,
-                  y: currentTextIndex === index ? 0 : 20,
-                }}
-                transition={{ duration: 1 }}
-                className="absolute inset-0 flex flex-col items-center justify-center"
-              >
-                {/* Título principal */}
-                <motion.h3
-                  className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-[0.15em] text-white mb-6 font-playfair"
-                  style={{
-                    textShadow: '0 4px 30px rgba(0,0,0,0.9), 0 0 60px rgba(0,0,0,0.7)',
-                  }}
-                >
-                  {text.title}
-                </motion.h3>
+        {/* Contenido centrado */}
+        <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-12">
 
-                {/* Subtítulo */}
-                <motion.p
-                  className="text-base md:text-xl lg:text-2xl tracking-[0.2em] text-gray-200 font-light font-playfair"
-                  style={{
-                    textShadow: '0 2px 20px rgba(0,0,0,0.9)',
-                  }}
-                >
-                  {text.subtitle}
-                </motion.p>
-
-                {/* Línea decorativa */}
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: currentTextIndex === index ? '120px' : 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="h-[1px] bg-white/50 mt-8"
-                />
-              </motion.div>
-            ))}
-
-            {/* Indicadores de progreso */}
-            <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-3">
-              {videoTexts.map((_, index) => (
-                <motion.div
-                  key={index}
-                  className="w-2 h-2 rounded-full bg-white/30"
-                  animate={{
-                    backgroundColor: currentTextIndex === index ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)',
-                    scale: currentTextIndex === index ? 1.2 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 1,
-            delay: 1,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-white/60 text-xs tracking-[0.3em] font-light font-playfair">
-              DESLICE
-            </span>
-            <svg
-              className="w-6 h-6 text-white/60"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* Mensaje aspiracional principal */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="text-center max-w-4xl flex-1 flex flex-col justify-center"
+          >
+            {/* Frase aspiracional */}
+            <motion.h3
+              className="text-4xl md:text-6xl lg:text-8xl font-light tracking-[0.12em] text-white mb-8 font-playfair leading-tight"
+              style={{
+                textShadow: '0 4px 40px rgba(0,0,0,0.9), 0 2px 20px rgba(0,0,0,0.8)',
+              }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
-          </div>
-        </motion.div>
+              Cuida lo que más
+              <br />
+              <span className="font-medium">te importa</span>
+            </motion.h3>
+
+            {/* Línea decorativa */}
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: '120px' }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="h-[1px] bg-white/60 mx-auto mb-12"
+            />
+
+            {/* Botón Contáctenos */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 1.2 }}
+            >
+              <motion.a
+                href="#contacto"
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: '0 0 40px rgba(255,255,255,0.4)',
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-block border-2 border-white/90 rounded-full text-white text-sm md:text-base tracking-[0.25em] font-medium px-16 py-6 hover:bg-white hover:text-black transition-all duration-500 shadow-2xl backdrop-blur-sm font-playfair"
+                style={{
+                  boxShadow: '0 4px 30px rgba(0,0,0,0.6)',
+                }}
+              >
+                CONTÁCTENOS
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.5,
+              delay: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+            className="mt-auto"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-white/50 text-xs tracking-[0.3em] font-light font-playfair">
+                DESCUBRA MÁS
+              </span>
+              <svg
+                className="w-6 h-6 text-white/50"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Steps Section */}
@@ -239,26 +182,94 @@ const HowItWorksRolex = () => {
               >
                 {/* Image */}
                 <div className={`${index % 2 === 1 ? 'md:order-2' : ''}`}>
-                  <div className="relative h-[400px] md:h-[500px] overflow-hidden border border-white/10">
-                    <img
-                      src={step.image}
-                      alt={step.title}
-                      className="w-full h-full object-cover"
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1, delay: 0.4 }}
+                    className="relative group"
+                  >
+                    {/* Líneas decorativas flotantes */}
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '100%' }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, delay: 0.6 }}
+                      className="absolute -top-8 left-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent z-20"
                     />
-                  </div>
+                    <motion.div
+                      initial={{ height: 0 }}
+                      whileInView={{ height: '100%' }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, delay: 0.8 }}
+                      className="absolute top-0 -left-4 w-[1px] bg-gradient-to-b from-transparent via-white/40 to-transparent z-20"
+                    />
+                    
+                    {/* Contenedor de imagen */}
+                    <div className="relative h-[500px] md:h-[600px] overflow-hidden">
+                      {/* Imagen con efecto parallax */}
+                      <motion.div
+                        className="relative w-full h-full"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                      >
+                        <img
+                          src={step.image}
+                          alt={step.title}
+                          className="w-full h-full object-cover"
+                          style={{
+                            filter: 'contrast(1.05) brightness(0.95)',
+                          }}
+                        />
+                        
+                        {/* Overlay sutil */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        
+                        {/* Borde interior muy sutil */}
+                        <div className="absolute inset-8 border border-white/10 pointer-events-none" />
+                      </motion.div>
+                      
+                      {/* Número del paso integrado */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 1 }}
+                        className="absolute bottom-8 right-8 flex items-center justify-center w-20 h-20 border-2 border-white/30 backdrop-blur-sm bg-black/30"
+                      >
+                        <span className="text-4xl font-light text-white font-playfair">
+                          {step.number}
+                        </span>
+                      </motion.div>
+                    </div>
+                    
+                    {/* Líneas decorativas flotantes (lado opuesto) */}
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '100%' }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, delay: 1 }}
+                      className="absolute -bottom-8 right-0 h-[1px] bg-gradient-to-l from-transparent via-white/40 to-transparent z-20"
+                    />
+                    <motion.div
+                      initial={{ height: 0 }}
+                      whileInView={{ height: '100%' }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, delay: 1.2 }}
+                      className="absolute bottom-0 -right-4 w-[1px] bg-gradient-to-t from-transparent via-white/40 to-transparent z-20"
+                    />
+                  </motion.div>
                 </div>
 
                 {/* Content */}
                 <div className={`${index % 2 === 1 ? 'md:order-1' : ''}`}>
                   <div className="relative">
-                    {/* Roman Numeral Background */}
                     <span 
                       className="absolute -left-4 -top-8 text-8xl md:text-9xl font-light text-white/5 font-playfair"
                     >
                       {step.number}
                     </span>
                     
-                    {/* Content */}
                     <div className="relative z-10">
                       <span className="text-xs md:text-sm tracking-[0.3em] text-gray-500 font-light mb-4 block font-playfair">
                         PASO {step.number}
