@@ -6,12 +6,12 @@ const GalleryRolex = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const images = [
-    { src: '/images/_MG_3130.jpg', title: 'ELEGANCIA' },
-    { src: '/images/_MG_3134.jpg', title: 'PRECISIÓN' },
-    { src: '/images/_MG_3169.jpg', title: 'INNOVACIÓN' },
-    { src: '/images/_MG_3184.jpg', title: 'INGENIERÍA' },
-    { src: '/images/_MG_3262.jpg', title: 'PERFECCIÓN' },
-    { src: '/images/_MG_3296.jpg', title: 'EXCELENCIA' },
+    { src: '/images/_MG_3152.jpg', },
+    { src: '/images/_MG_3134.jpg', },
+    { src: '/images/_MG_3412.jpg', },
+    { src: '/images/_MG_3184.jpg', },
+    { src: '/images/_MG_3189.jpg', },
+    { src: '/images/_MG_3416.jpg', },
   ];
 
   const nextImage = () => {
@@ -37,7 +37,7 @@ const GalleryRolex = () => {
           className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4"
             style={{ fontFamily: 'serif' }}
           >
-            COLECCIÓN
+            GALERIA 
           </h2>
           <p className="text-sm tracking-[0.3em] text-gray-500 font-light">
             CADA ÁNGULO REVELA PERFECCIÓN

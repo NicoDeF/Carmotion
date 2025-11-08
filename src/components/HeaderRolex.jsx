@@ -13,10 +13,10 @@ const HeaderRolex = () => {
   }, []);
 
   const navLinks = [
-    { name: 'COLECCIÓN', href: '#galeria' },
+    { name: 'CONTACTO', href: '#contacto' },
     { name: 'TECNOLOGÍA', href: '#caracteristicas' },
     { name: 'EXPERIENCIA', href: '#como-funciona' },
-    { name: 'CONTACTO', href: '#contacto' },
+    { name: 'GALERIA', href: '#galeria' },
   ];
 
   return (

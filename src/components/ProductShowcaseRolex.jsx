@@ -30,7 +30,7 @@ const ProductShowcaseRolex = () => {
   ];
 
   return (
-    <section id="discover" className="bg-black py-32 lg:py-48">
+    <section id="caracteristicas" className="bg-black py-32 lg:py-48">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Main Image */}
         <motion.div

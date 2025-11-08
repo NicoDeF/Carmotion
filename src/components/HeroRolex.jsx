@@ -7,20 +7,26 @@ const HeroRolex = () => {
 
   const slides = [
     {
-      image: '/images/_MG_3353.jpg',
+      image: '/images/_MG_3262.jpg',
       title: 'CARMOTION',
-      subtitle: 'Precisión en Protección',
+      subtitle: 'Dedicados a la protección',
     },
     {
-      image: '/images/_MG_3271.jpg',
-      title: 'INGENIERÍA',
-      subtitle: 'Aeronáutica Premium',
-    },
-    {
-      image: '/images/_MG_3169.jpg',
+      image: '/images/IMG_20250413_135647.jpg',
       title: 'EXCELENCIA',
-      subtitle: 'En Cada Detalle',
+      subtitle: 'En cada detalle',
     },
+    {
+      image: '/images/_MG_3233.jpg',
+      title: 'PROTECCIÓN TOTAL',
+      subtitle: 'Lona de alta densidad para máxima resistencia al sol, lluvias y granizo',
+    },
+     {
+      image: '/images/_MG_3191.jpg',
+      title: 'PRECISIÓN HIDRÁULICA',
+      subtitle: 'Sistema totamente hidráulico',
+    },
+   
   ];
 
   useEffect(() => {
