@@ -10,11 +10,11 @@ const GalleryRolex = () => {
 
   // Imágenes originales
   const images = [
-    '/images/_MG_3152.jpg',
-    '/images/_MG_3184.jpg',
-    '/images/_MG_3191.jpg',
-    '/images/_MG_3412.jpg',
-    '/images/_MG_3134.jpg',
+    '/images/_MG_3152_1.jpg',
+    '/images/_MG_3184_1.jpg',
+    '/images/_MG_3191_1.jpg',
+    '/images/_MG_3412_1.jpg',
+    '/images/_MG_3134_1.jpg',
     '/images/_MG_3249.jpg',
   ];
 

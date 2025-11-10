@@ -12,13 +12,16 @@ const HeaderRolex = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Smooth scroll a secciones
+  // Smooth scroll a secciones - calcula altura real del header
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const offset = 80; // Altura del header
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      // obtener la altura actual del header (por si cambia en responsive)
+      const headerEl = document.querySelector('header');
+      const headerHeight = headerEl ? headerEl.offsetHeight : 96;
+
+      const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementTop - headerHeight;
 
       window.scrollTo({
         top: offsetPosition,
@@ -30,7 +33,7 @@ const HeaderRolex = () => {
 
   const navLinks = [
     { name: 'CONTACTO', id: 'contacto' },
-    { name: 'TECNOLOGÍA', id: 'tecnologia' }, // ← Actualizado para apuntar a VideoShowcase
+    { name: 'TECNOLOGÍA', id: 'tecnologia' },
     { name: 'EXPERIENCIA', id: 'como-funciona' },
     { name: 'FOTOS', id: 'galeria' },
   ];
@@ -63,7 +66,6 @@ const HeaderRolex = () => {
                 filter: 'brightness(0.85) contrast(1.2)',
               }}
             />
-            {/* Texto responsive con breakpoints optimizados */}
             <span className="text-base sm:text-xl md:text-2xl lg:text-3xl tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.25em] font-normal font-audiowide text-white whitespace-nowrap">
               CARMOTION
             </span>
@@ -80,8 +82,6 @@ const HeaderRolex = () => {
                 className="relative text-xs tracking-[0.2em] text-gray-300 hover:text-white transition-colors duration-300 font-light group"
               >
                 {link.name}
-                
-                {/* Underline animation */}
                 <span className="absolute left-0 bottom-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full" />
               </motion.button>
             ))}

@@ -48,7 +48,7 @@ const VideoShowcaseRolex = () => {
     <section 
       id="tecnologia"
       ref={sectionRef}
-      className="relative w-full min-h-screen flex items-end overflow-hidden bg-black"
+      className="relative w-full min-h-screen flex items-end overflow-hidden bg-black scroll-mt-24"
     >
       {/* Video Background - Con loading optimizado */}
       {isInView && (

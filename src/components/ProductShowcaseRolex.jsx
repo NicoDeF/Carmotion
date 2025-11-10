@@ -42,7 +42,7 @@ const ProductShowcaseRolex = () => {
         >
           <div className="relative h-[70vh] overflow-hidden">
             <img
-              src="/images/_MG_3262.jpg"
+              src="/images/_MG_3262_1.jpg"
               alt="CARMOTION Premium"
               className="w-full h-full object-cover"
             />

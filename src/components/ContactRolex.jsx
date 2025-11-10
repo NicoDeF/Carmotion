@@ -31,7 +31,6 @@ const ContactRolex = () => {
     setStatus('sending');
     
     try {
-      // CAMBIAR 'xpznqwer' POR TU FORM ID DE FORMSPREE
       const response = await fetch('https://formspree.io/f/mnnoeoow', {
         method: 'POST',
         headers: {
@@ -58,11 +57,6 @@ const ContactRolex = () => {
           });
         }
         
-        // Opcional: También notificar por WhatsApp
-        const whatsappMsg = `Nuevo contacto: ${formData.name} - ${formData.email}`;
-        // Descomentar si quieres notificación automática:
-        // window.open(`https://wa.me/5491123456789?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
-        
         setTimeout(() => setStatus('idle'), 5000);
       } else {
         throw new Error('Error al enviar');
@@ -87,11 +81,9 @@ const ContactRolex = () => {
         >
           <h2 
             className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-playfair"
-            style={{ fontFamily: 'serif' }}
           >
             CONTACTO
           </h2>
-
         </motion.div>
 
         {/* Status Messages */}
@@ -126,14 +118,14 @@ const ContactRolex = () => {
         )}
 
         {/* Form */}
-    <motion.form
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1 }}
-      onSubmit={handleSubmit}
-      className="space-y-8 border border-white/40 p-10 md:p-14 shadow-[0_0_40px_rgba(255,255,255,0.15)]"
-      >
+        <motion.form
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          onSubmit={handleSubmit}
+          className="space-y-8 border border-white/40 p-10 md:p-14 shadow-[0_0_40px_rgba(255,255,255,0.15)]"
+        >
           <div>
             <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
               NOMBRE COMPLETO *
@@ -207,48 +199,6 @@ const ContactRolex = () => {
             </button>
           </div>
         </motion.form>
-
-        {/* Contact Info */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mt-24 pt-24 border-t border-white/10"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center">
-            <div>
-              <p className="text-xs tracking-[0.3em] text-gray-500 mb-3 font-light">
-                TELÉFONO
-              </p>
-              <a 
-                href="https://wa.me/5491123456789"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white font-light hover:text-gray-300 transition-colors"
-              >
-                +54 11 1234-5678
-              </a>
-            </div>
-            <div>
-              <p className="text-xs tracking-[0.3em] text-gray-500 mb-3 font-light">
-                CORREO
-              </p>
-              <a 
-                href="mailto:contacto@carmotion.com.ar"
-                className="text-white font-light hover:text-gray-300 transition-colors"
-              >
-                info@carmotion.com.ar
-              </a>
-            </div>
-            <div>
-              <p className="text-xs tracking-[0.3em] text-gray-500 mb-3 font-light">
-                UBICACIÓN
-              </p>
-              <p className="text-white font-light">Buenos Aires, Argentina</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
