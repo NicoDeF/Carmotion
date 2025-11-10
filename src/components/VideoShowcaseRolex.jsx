@@ -1,9 +1,11 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const VideoShowcaseRolex = () => {
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Efecto de parallax y opacidad con scroll
   const { scrollYProgress } = useScroll({
@@ -14,47 +16,68 @@ const VideoShowcaseRolex = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0.5]);
 
-  // Reproduce/Pausa automáticamente según el scroll
+  // Detectar cuando la sección es visible
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
+        setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.4 }
+      { threshold: 0.3 }
     );
 
-    observer.observe(video);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
     return () => observer.disconnect();
   }, []);
 
+  // Reproduce/Pausa automáticamente según visibilidad
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !videoLoaded) return;
+
+    if (isInView) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [isInView, videoLoaded]);
+
   return (
     <section 
-      id="tecnologia" // ← ID actualizado para navegación desde header
+      id="tecnologia"
       ref={sectionRef}
       className="relative w-full min-h-screen flex items-end overflow-hidden bg-black"
     >
-      {/* Video Background */}
-      <motion.video
-        ref={videoRef}
-        src="/videos/CarMOtion_01.mp4"
-        loop
-        muted
-        playsInline
-        preload="auto"
-        style={{
-          scale,
-          opacity,
-          filter: "brightness(0.65) contrast(1.1) saturate(1.1)",
-        }}
-        className="absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000"
-      />
+      {/* Video Background - Con loading optimizado */}
+      {isInView && (
+        <motion.video
+          ref={videoRef}
+          src="/videos/CarMOtion_01.mp4"
+          loop
+          muted
+          playsInline
+          preload="metadata" // Solo carga metadata inicialmente
+          onLoadedData={() => setVideoLoaded(true)}
+          style={{
+            scale,
+            opacity,
+            filter: "brightness(0.65) contrast(1.1) saturate(1.1)",
+          }}
+          className="absolute top-0 left-0 w-full h-full object-cover transition-all duration-1000"
+        />
+      )}
+
+      {/* Placeholder mientras carga el video */}
+      {!videoLoaded && isInView && (
+        <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+          <svg className="w-16 h-16 text-gray-700 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+        </div>
+      )}
 
       {/* Overlay oscuro con degradado más fuerte hacia abajo */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/95 pointer-events-none" />

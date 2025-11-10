@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const HowItWorksRolex = () => {
   const videoRef = useRef(null);
   const videoSectionRef = useRef(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
   const steps = [
     {
@@ -77,6 +79,23 @@ const HowItWorksRolex = () => {
 
         {/* Contenido centrado */}
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-12">
+          {/* Título SIMPLICIDAD arriba */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-16 md:mb-20"
+          >
+            <h2 
+              className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] text-white font-playfair"
+              style={{
+                textShadow: '0 4px 30px rgba(0,0,0,0.9)',
+              }}
+            >
+              SIMPLICIDAD
+            </h2>
+          </motion.div>
 
           {/* Mensaje aspiracional principal */}
           <motion.div
