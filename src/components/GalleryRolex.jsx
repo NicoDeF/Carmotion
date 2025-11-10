@@ -15,7 +15,7 @@ const GalleryRolex = () => {
     '/images/_MG_3191_1.jpg',
     '/images/_MG_3412_1.jpg',
     '/images/_MG_3134_1.jpg',
-    '/images/_MG_3249.jpg',
+    '/images/_MG_3249_1.jpg',
   ];
 
   // Intersection Observer para lazy loading

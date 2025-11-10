@@ -17,7 +17,7 @@ const FooterRolex = () => {
             CARMOTION
           </h3>
           <p className="text-xs tracking-[0.3em] text-gray-500 font-light font-playfair">
-            PROTECCIÓN PREMIUM DESDE 2024
+            PROTECCIÓN PREMIUM
           </p>
         </motion.div>
 
