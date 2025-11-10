@@ -1,161 +1,166 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const GalleryRolex = () => {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
+  // Imágenes originales
   const images = [
-    { src: '/images/_MG_3152.jpg', },
-    { src: '/images/_MG_3134.jpg', },
-    { src: '/images/_MG_3412.jpg', },
-    { src: '/images/_MG_3184.jpg', },
-    { src: '/images/_MG_3189.jpg', },
-    { src: '/images/_MG_3416.jpg', },
+    '/images/_MG_3152.jpg',
+    '/images/_MG_3184.jpg',
+    '/images/_MG_3191.jpg',
+    '/images/_MG_3412.jpg',
+    '/images/_MG_3271.jpg',
+    '/images/_MG_3249.jpg',
   ];
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.8,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.8,
+    }),
   };
 
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+  const paginate = (newDirection) => {
+    setDirection(newDirection);
+    setCurrentIndex((prevIndex) => {
+      let nextIndex = prevIndex + newDirection;
+      if (nextIndex < 0) nextIndex = images.length - 1;
+      if (nextIndex >= images.length) nextIndex = 0;
+      return nextIndex;
+    });
   };
 
   return (
-    <section id="galeria" className="bg-black py-32 lg:py-48">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Title */}
+    <section id="galeria" className="relative bg-black py-24 md:py-32 lg:py-48 overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900/50 to-black" />
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="text-center mb-32"
-        >
-          <h2 
-          className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4"
-            style={{ fontFamily: 'serif' }}
-          >
-            GALERIA 
-          </h2>
-          <p className="text-sm tracking-[0.3em] text-gray-500 font-light">
-            CADA ÁNGULO REVELA PERFECCIÓN
-          </p>
-        </motion.div>
+          animate={{
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: 'radial-gradient(circle at center, white 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+      </div>
 
-        {/* Main Image Display */}
-        <div className="relative">
-          <AnimatePresence mode="wait">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+        {/* Carousel Container */}
+        <div className="relative h-[400px] md:h-[600px] lg:h-[700px]">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
-              key={currentImage}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative h-[70vh] cursor-pointer"
-              onClick={() => setLightboxOpen(true)}
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.5 },
+                scale: { duration: 0.5 },
+              }}
+              className="absolute inset-0 flex items-center justify-center"
             >
-              <img
-                src={images[currentImage].src}
-                alt={images[currentImage].title}
-                className="w-full h-full object-cover"
-              />
-              
-              {/* Title Overlay */}
-              <div className="absolute bottom-12 left-12">
-                <motion.h3
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="text-3xl font-light tracking-[0.3em] text-white"
-                  style={{ fontFamily: 'serif' }}
-                >
-                  {images[currentImage].title}
-                </motion.h3>
+              {/* Main Image - Sin textos ni overlays */}
+              <div className="relative w-full max-w-5xl aspect-video group">
+                <motion.img
+                  src={images[currentIndex]}
+                  alt={`Imagen ${currentIndex + 1}`}
+                  className="w-full h-full object-cover shadow-2xl"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.5 }}
+                />
+
+                {/* Solo esquinas decorativas minimalistas */}
+                <div className="absolute top-0 left-0 w-12 h-12 border-t border-l border-white/30" />
+                <div className="absolute top-0 right-0 w-12 h-12 border-t border-r border-white/30" />
+                <div className="absolute bottom-0 left-0 w-12 h-12 border-b border-l border-white/30" />
+                <div className="absolute bottom-0 right-0 w-12 h-12 border-b border-r border-white/30" />
               </div>
             </motion.div>
           </AnimatePresence>
 
           {/* Navigation Arrows */}
-          <button
-            onClick={prevImage}
-            className="absolute left-8 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-colors font-light"
+          <motion.button
+            onClick={() => paginate(-1)}
+            whileHover={{ scale: 1.1, x: -5 }}
+            whileTap={{ scale: 0.9 }}
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border border-white/40 hover:border-white bg-black/30 backdrop-blur-sm hover:bg-black/60 transition-all duration-300"
           >
-            ‹
-          </button>
-          <button
-            onClick={nextImage}
-            className="absolute right-8 top-1/2 transform -translate-y-1/2 text-white text-4xl hover:text-gray-300 transition-colors font-light"
-          >
-            ›
-          </button>
+            <svg className="w-6 h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </motion.button>
 
-          {/* Progress Indicator */}
-          <div className="absolute bottom-12 right-12 flex gap-3">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImage(index)}
-                className={`transition-all duration-500 ${
-                  index === currentImage 
-                    ? 'w-12 h-px bg-white' 
-                    : 'w-8 h-px bg-white/30 hover:bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
+          <motion.button
+            onClick={() => paginate(1)}
+            whileHover={{ scale: 1.1, x: 5 }}
+            whileTap={{ scale: 0.9 }}
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border border-white/40 hover:border-white bg-black/30 backdrop-blur-sm hover:bg-black/60 transition-all duration-300"
+          >
+            <svg className="w-6 h-6 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </motion.button>
         </div>
 
-        {/* Thumbnail Grid */}
-        <div className="grid grid-cols-6 gap-4 mt-12">
+        {/* Thumbnails */}
+        <div className="flex justify-center gap-3 mt-12 flex-wrap">
           {images.map((image, index) => (
-            <button
+            <motion.button
               key={index}
-              onClick={() => setCurrentImage(index)}
-              className={`relative h-24 overflow-hidden transition-all duration-300 ${
-                index === currentImage 
-                  ? 'opacity-100 border-2 border-white' 
-                  : 'opacity-40 hover:opacity-70'
+              onClick={() => {
+                setDirection(index > currentIndex ? 1 : -1);
+                setCurrentIndex(index);
+              }}
+              whileHover={{ scale: 1.1, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              className={`relative w-16 h-16 md:w-20 md:h-20 overflow-hidden transition-all duration-300 border ${
+                index === currentIndex
+                  ? 'border-white border-2 opacity-100'
+                  : 'border-white/20 opacity-40 hover:opacity-80'
               }`}
             >
               <img
-                src={image.src}
-                alt={`Thumbnail ${index + 1}`}
+                src={image}
+                alt={`Miniatura ${index + 1}`}
                 className="w-full h-full object-cover"
               />
-            </button>
+            </motion.button>
           ))}
         </div>
-      </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setLightboxOpen(false)}
-            className="fixed inset-0 bg-black/98 z-50 flex items-center justify-center cursor-pointer"
-          >
-            <button
-              className="absolute top-8 right-8 text-white text-5xl hover:text-gray-300 transition-colors"
-              onClick={() => setLightboxOpen(false)}
-            >
-              ×
-            </button>
-            <motion.img
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              src={images[currentImage].src}
-              alt={images[currentImage].title}
-              className="max-w-[90%] max-h-[90vh] object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Counter minimalista */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center mt-8 text-white/40 text-sm tracking-[0.3em] font-light"
+        >
+          {currentIndex + 1} / {images.length}
+        </motion.div>
+      </div>
     </section>
   );
 };

@@ -14,7 +14,7 @@ const ProductShowcaseRolex = () => {
     },
     {
     title: 'MEDIDAS DISPONIBLES',
-      description: 'Diseñadas para autos y camionetas, nuestras cubiertas se adaptan con precisión a distintos tamaños y estilos de vehículo.',
+      description: 'Diseñadas para autos y camionetas, nuestras cobertores se adaptan con precisión a distintos tamaños y estilos de vehículo.',
       number: '03',
       },
     {

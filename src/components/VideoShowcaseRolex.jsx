@@ -35,7 +35,8 @@ const VideoShowcaseRolex = () => {
   }, []);
 
   return (
-    <section
+    <section 
+      id="tecnologia" // ← ID actualizado para navegación desde header
       ref={sectionRef}
       className="relative w-full min-h-screen flex items-end overflow-hidden bg-black"
     >

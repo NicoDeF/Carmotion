@@ -7,7 +7,7 @@ const HeroRolex = () => {
 
   const slides = [
     {
-      image: '/images/_MG_3262.jpg',
+      image: '/images/_MG_3235.jpg',
       title: 'CARMOTION',
       subtitle: 'Dedicados a la protección',
     },
