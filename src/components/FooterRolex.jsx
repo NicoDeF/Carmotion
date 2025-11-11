@@ -52,7 +52,7 @@ const FooterRolex = () => {
                 href="mailto:info@carmotion.com.ar"
                 className="text-white font-light hover:text-gray-300 transition-colors"
               >
-                info@carmotion.com.ar
+                contacto@carmotion.com.ar
               </a>
             </div>
             

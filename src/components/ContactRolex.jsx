@@ -31,7 +31,7 @@ const ContactRolex = () => {
     setStatus('sending');
     
     try {
-      const response = await fetch('https://formspree.io/f/mnnoeoow', {
+      const response = await fetch('https://formspree.io/f/xvgdoqyj', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
