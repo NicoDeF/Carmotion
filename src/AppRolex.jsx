@@ -9,18 +9,17 @@ import GalleryRolex from './components/GalleryRolex';
 import ContactRolex from './components/ContactRolex';
 import FooterRolex from './components/FooterRolex';
 import WhatsAppButtonRolex from './components/WhatsAppButtonRolex';
-
+import ScrollStacker from './components/ScrollStacker';
 
 function AppRolex() {
   return (
     <div className="min-h-screen bg-black">
       <HeaderRolex />
       <HeroRolex />
+      <ScrollStacker /> 
       <ProductShowcaseRolex />
       <IncludesRolex />
-      <VideoShowcaseRolex /> 
       <YouTubeShowcaseRolex />
-      <HowItWorksRolex />
       <GalleryRolex />
       <ContactRolex />
       <FooterRolex />
