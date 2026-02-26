@@ -8,7 +8,7 @@ const ContactRolex = () => {
     phone: '',
     message: '',
   });
-  const [status, setStatus] = useState('idle'); // idle, sending, success, error
+  const [status, setStatus] = useState('idle');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,7 +17,6 @@ const ContactRolex = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validar
     if (!formData.name || !formData.email || !formData.phone) {
       alert('⚠️ Por favor complete todos los campos obligatorios');
       return;
@@ -49,7 +48,6 @@ const ContactRolex = () => {
         setStatus('success');
         setFormData({ name: '', email: '', phone: '', message: '' });
         
-        // Google Analytics (si lo tienes)
         if (window.gtag) {
           window.gtag('event', 'form_submit', {
             event_category: 'contact',
@@ -71,17 +69,19 @@ const ContactRolex = () => {
   return (
     <section id="contacto" className="bg-black py-32 lg:py-48 border-t border-white/10">
       <div className="max-w-4xl mx-auto px-6 lg:px-12">
-        {/* Title */}
+        
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="text-center mb-24"
+          className="text-center mb-20"
         >
-          <h2 
-            className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-playfair"
-          >
+          <span className="text-[10px] tracking-[0.4em] text-gray-500 font-light mb-4 block font-body">
+            HABLEMOS
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white font-display">
             CONTACTO
           </h2>
         </motion.div>
@@ -93,10 +93,10 @@ const ContactRolex = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8 p-6 border border-green-500/30 bg-green-500/10 text-center"
           >
-            <p className="text-green-400 text-sm tracking-wider">
+            <p className="text-green-400 text-[11px] tracking-[0.2em] font-body">
               ✅ MENSAJE ENVIADO CORRECTAMENTE
             </p>
-            <p className="text-gray-400 text-xs mt-2">
+            <p className="text-gray-400 text-xs mt-2 font-body font-light">
               Nos contactaremos a la brevedad
             </p>
           </motion.div>
@@ -108,10 +108,10 @@ const ContactRolex = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8 p-6 border border-red-500/30 bg-red-500/10 text-center"
           >
-            <p className="text-red-400 text-sm tracking-wider">
+            <p className="text-red-400 text-[11px] tracking-[0.2em] font-body">
               ❌ ERROR AL ENVIAR
             </p>
-            <p className="text-gray-400 text-xs mt-2">
+            <p className="text-gray-400 text-xs mt-2 font-body font-light">
               Por favor intente nuevamente
             </p>
           </motion.div>
@@ -124,10 +124,10 @@ const ContactRolex = () => {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
           onSubmit={handleSubmit}
-          className="space-y-8 border border-white/40 p-10 md:p-14 shadow-[0_0_40px_rgba(255,255,255,0.15)]"
+          className="space-y-8 border border-white/20 p-10 md:p-14"
         >
           <div>
-            <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
               NOMBRE COMPLETO *
             </label>
             <input
@@ -137,13 +137,13 @@ const ContactRolex = () => {
               onChange={handleChange}
               required
               disabled={status === 'sending'}
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors disabled:opacity-50"
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-base font-light tracking-wide focus:outline-none focus:border-white transition-colors disabled:opacity-50 font-body"
               placeholder="Juan Pérez"
             />
           </div>
 
           <div>
-            <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
               CORREO ELECTRÓNICO *
             </label>
             <input
@@ -153,13 +153,13 @@ const ContactRolex = () => {
               onChange={handleChange}
               required
               disabled={status === 'sending'}
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors disabled:opacity-50"
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-base font-light tracking-wide focus:outline-none focus:border-white transition-colors disabled:opacity-50 font-body"
               placeholder="correo@ejemplo.com"
             />
           </div>
 
           <div>
-            <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
               TELÉFONO *
             </label>
             <input
@@ -169,13 +169,13 @@ const ContactRolex = () => {
               onChange={handleChange}
               required
               disabled={status === 'sending'}
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors disabled:opacity-50"
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-base font-light tracking-wide focus:outline-none focus:border-white transition-colors disabled:opacity-50 font-body"
               placeholder="+54 11 1234-5678"
             />
           </div>
 
           <div>
-            <label className="block text-xs tracking-[0.3em] text-gray-500 mb-4 font-light">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
               CONSULTA
             </label>
             <textarea
@@ -184,7 +184,7 @@ const ContactRolex = () => {
               onChange={handleChange}
               rows="4"
               disabled={status === 'sending'}
-              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-lg font-light tracking-wider focus:outline-none focus:border-white transition-colors resize-none disabled:opacity-50"
+              className="w-full bg-transparent border-b border-white/20 py-4 text-white text-base font-light tracking-wide focus:outline-none focus:border-white transition-colors resize-none disabled:opacity-50 font-body"
               placeholder="Cuéntenos sobre su vehículo..."
             />
           </div>
@@ -193,7 +193,7 @@ const ContactRolex = () => {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="w-full border border-white/30 text-white text-sm tracking-[0.3em] font-light py-6 hover:bg-white hover:text-black transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-white/30 text-white text-[11px] tracking-[0.25em] font-light py-6 hover:bg-white hover:text-black transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed font-body"
             >
               {status === 'sending' ? 'ENVIANDO...' : 'SOLICITAR ASESORAMIENTO'}
             </button>

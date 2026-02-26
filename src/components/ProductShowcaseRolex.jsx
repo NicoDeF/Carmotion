@@ -27,6 +27,11 @@ const ProductShowcaseRolex = () => {
       description: 'La estructura soporta hasta 300 kg y puede anclarse firmemente al piso, ofreciendo máxima seguridad y estabilidad durante su uso.',
       number: '05',
     },
+    {
+      title: '5 POSICIONES DE ANCLAJE',
+      description: 'Instalalo donde quieras: cemento, baldosas, tierra o césped. El sistema de amuramiento universal se adapta a cualquier superficie, brindando máxima estabilidad.',
+      number: '06',
+    },
   ];
 
   return (

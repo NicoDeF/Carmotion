@@ -7,7 +7,6 @@ const VideoShowcaseRolex = () => {
   const [isInView, setIsInView] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  // Efecto de parallax y opacidad con scroll
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -16,7 +15,6 @@ const VideoShowcaseRolex = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0.5]);
 
-  // Detectar cuando la sección es visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -32,7 +30,6 @@ const VideoShowcaseRolex = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Reproduce/Pausa automáticamente según visibilidad
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !videoLoaded) return;
@@ -48,9 +45,9 @@ const VideoShowcaseRolex = () => {
     <section 
       id="tecnologia"
       ref={sectionRef}
-      className="relative w-full min-h-screen flex items-end overflow-hidden bg-black scroll-mt-24"
+      className="relative w-full min-h-screen flex items-end overflow-hidden bg-black scroll-mt-16"
     >
-      {/* Video Background - Con loading optimizado */}
+      {/* Video Background */}
       {isInView && (
         <motion.video
           ref={videoRef}
@@ -58,7 +55,7 @@ const VideoShowcaseRolex = () => {
           loop
           muted
           playsInline
-          preload="metadata" // Solo carga metadata inicialmente
+          preload="metadata"
           onLoadedData={() => setVideoLoaded(true)}
           style={{
             scale,
@@ -69,7 +66,7 @@ const VideoShowcaseRolex = () => {
         />
       )}
 
-      {/* Placeholder mientras carga el video */}
+      {/* Placeholder mientras carga */}
       {!videoLoaded && isInView && (
         <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
           <svg className="w-16 h-16 text-gray-700 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -79,19 +76,20 @@ const VideoShowcaseRolex = () => {
         </div>
       )}
 
-      {/* Overlay oscuro con degradado más fuerte hacia abajo */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/95 pointer-events-none" />
 
-      {/* Contenido en la parte inferior */}
+      {/* Content */}
       <div className="relative z-10 w-full pb-12 md:pb-16 lg:pb-20 px-6">
         <div className="max-w-5xl mx-auto text-center space-y-8 md:space-y-10">
-          {/* Texto: PROTECCIÓN EN ACCIÓN */}
+          
+          {/* Title */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="text-gray-200 text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] font-light font-playfair"
+            className="text-gray-200 text-2xl md:text-3xl lg:text-4xl tracking-wide font-light font-display"
             style={{
               textShadow: '0 2px 10px rgba(0,0,0,0.8)',
             }}
@@ -99,7 +97,7 @@ const VideoShowcaseRolex = () => {
             PROTECCIÓN EN ACCIÓN
           </motion.p>
 
-          {/* Botón: SOLICITAR INFORMACIÓN */}
+          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -113,7 +111,7 @@ const VideoShowcaseRolex = () => {
                 boxShadow: '0 0 30px rgba(255,255,255,0.3)',
               }}
               whileTap={{ scale: 0.95 }}
-              className="inline-block border-2 border-white/90 rounded-full text-white text-xs md:text-sm tracking-[0.25em] font-medium px-14 py-5 hover:bg-white hover:text-black transition-all duration-500 shadow-xl backdrop-blur-sm font-playfair"
+              className="inline-block border-2 border-white/90 rounded-full text-white text-[11px] tracking-[0.2em] font-light px-14 py-5 hover:bg-white hover:text-black transition-all duration-500 shadow-xl backdrop-blur-sm font-body"
               style={{
                 boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
               }}
