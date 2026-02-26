@@ -2,21 +2,17 @@ import HeaderRolex from './components/HeaderRolex';
 import HeroRolex from './components/HeroRolex';
 import ProductShowcaseRolex from './components/ProductShowcaseRolex';
 import IncludesRolex from './components/IncludesRolex';
-import VideoShowcaseRolex from './components/VideoShowcaseRolex';
 import YouTubeShowcaseRolex from './components/YouTubeShowcaseRolex';
-import HowItWorksRolex from './components/HowItWorksRolex';
 import GalleryRolex from './components/GalleryRolex';
 import ContactRolex from './components/ContactRolex';
 import FooterRolex from './components/FooterRolex';
 import WhatsAppButtonRolex from './components/WhatsAppButtonRolex';
-import ScrollStacker from './components/ScrollStacker';
 
-function AppRolex() {
+export default function AppRolex() {
   return (
     <div className="min-h-screen bg-black">
       <HeaderRolex />
       <HeroRolex />
-      <ScrollStacker /> 
       <ProductShowcaseRolex />
       <IncludesRolex />
       <YouTubeShowcaseRolex />
@@ -27,5 +23,3 @@ function AppRolex() {
     </div>
   );
 }
-
-export default AppRolex;
