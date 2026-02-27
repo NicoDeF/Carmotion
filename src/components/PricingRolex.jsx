@@ -10,7 +10,7 @@ const plans = [
   {
     id: 'auto',
     label: 'AUTOS',
-    price: '1.350.000',
+    price: '1.450.000',
     currency: 'ARS',
     badge: null,
     description: 'Para sedanes, hatchbacks y utilitarios compactos.',
@@ -19,8 +19,7 @@ const plans = [
       'Lona Oxford 600D impermeable',
       'Sistema hidráulico manual',
       'Anclaje universal 5 posiciones',
-      'Instalación incluida',
-      'Garantía de fabricación',
+      '5.5m × 2.3m × 2.5m (largo/ancho/alto)'
     ],
     cta: 'CONSULTAR DISPONIBILIDAD',
     href: '#contacto',
@@ -29,7 +28,7 @@ const plans = [
   {
     id: 'camioneta',
     label: 'CAMIONETAS',
-    price: '1.420.000',
+    price: '1.600.000',
     currency: 'ARS',
     badge: 'MÁS ELEGIDO',
     description: 'Para pickups, SUVs y vehículos de mayor porte.',
@@ -38,8 +37,7 @@ const plans = [
       'Lona Oxford 600D impermeable',
       'Sistema hidráulico manual',
       'Anclaje universal 5 posiciones',
-      'Instalación incluida',
-      'Garantía de fabricación',
+      '6m × 2.3m × 2.7m (largo/ancho/alto)'
     ],
     cta: 'CONSULTAR DISPONIBILIDAD',
     href: '#contacto',
@@ -74,10 +72,10 @@ const PricingRolex = () => {
             className="text-3xl md:text-5xl lg:text-6xl font-light tracking-[0.12em] text-white mb-8"
             style={{ fontFamily: 'serif' }}
           >
-            PROTECCIÓN SIN COMPROMISOS.
+            VALORES DE PROTECCIÓN.
           </h2>
           <p className="text-gray-500 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed">
-            Precio final con instalación incluida.<br />
+            Aceptamos efectivo, transferencia, todas las tarjetas con cuotas sin interes.<br />
             10% de descuento abonando en efectivo.
           </p>
         </motion.div>
