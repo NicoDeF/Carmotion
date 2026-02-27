@@ -89,7 +89,7 @@ const SCENES = [
 ];
 
 const TOTAL          = SCENES.length;
-const VH_PER_SCENE   = 100; // vh de scroll por escena
+const VH_PER_SCENE   = 50; // vh de scroll por escena
 
 // ─── Escena individual ────────────────────────────────────────────────────────
 const Scene = ({ scene, isActive }) => {
@@ -313,10 +313,10 @@ const HeroRolex = () => {
   // exit hacia arriba con leve scale y fade
   const variants = {
     enter: (dir) => ({
-      y:            dir > 0 ? "100%" : "-6%",
-      scale:        dir > 0 ? 1.0    : 0.97,
+      y:            dir > 0 ? "100%" : "-5%",
+      scale:        dir > 0 ? 1.0    : 0.95,
       borderRadius: dir > 0 ? "14px 14px 0 0" : "0px",
-      opacity:      dir > 0 ? 1      : 0.7,
+      opacity:      dir > 0 ? 1      : 0.6,
       zIndex:       20,
     }),
     center: {
@@ -326,22 +326,22 @@ const HeroRolex = () => {
       opacity:      1,
       zIndex:       20,
       transition: {
-        y:            { duration: 0.8,  ease: [0.32, 0, 0.15, 1] },
-        scale:        { duration: 0.8,  ease: [0.32, 0, 0.15, 1] },
-        borderRadius: { duration: 0.55, ease: "easeOut" },
-        opacity:      { duration: 0.45 },
+        y:            { duration: 0.5,  ease: [0.32, 0, 0.15, 1] },
+        scale:        { duration: 0.5,  ease: [0.32, 0, 0.15, 1] },
+        borderRadius: { duration: 0.35, ease: "easeOut" },
+        opacity:      { duration: 0.25 },
       },
     },
     exit: (dir) => ({
-      y:            dir > 0 ? "-6%" : "100%",
-      scale:        dir > 0 ? 0.97 : 1.0,
+      y:            dir > 0 ? "-5%" : "100%",
+      scale:        dir > 0 ? 0.95 : 1.0,
       borderRadius: dir > 0 ? "0px" : "14px 14px 0 0",
       opacity:      dir > 0 ? 0    : 1,
       zIndex:       10,
       transition: {
-        y:            { duration: 0.8,  ease: [0.32, 0, 0.15, 1] },
-        scale:        { duration: 0.8,  ease: [0.32, 0, 0.15, 1] },
-        opacity:      { duration: 0.45 },
+        y:            { duration: 0.5,  ease: [0.32, 0, 0.15, 1] },
+        scale:        { duration: 0.5,  ease: [0.32, 0, 0.15, 1] },
+        opacity:      { duration: 0.25 },
       },
     }),
   };
