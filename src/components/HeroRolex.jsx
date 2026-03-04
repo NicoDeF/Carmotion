@@ -1,30 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-/**
- * HeroRolex — Componente unificado
- *
- * Reemplaza HeroRolex + ScrollStacker en uno solo.
- *
- * ARQUITECTURA:
- * ─────────────
- * - Contenedor: height = N * 100vh → provee el espacio de scroll
- * - Panel sticky top:0 height:100vh → siempre visible
- * - Scroll listener nativo → calcula escena activa
- * - AnimatePresence mode="sync" → nueva escena entra desde abajo
- *   mientras la anterior sale hacia arriba (se "pisan")
- * - Videos: controlados por isActive, sin IntersectionObserver
- *
- * ESCENAS:
- * ─────────
- * 0. Video intro fullscreen         ← arranca inmediato
- * 1. Imagen brand CARMOTION
- * 2. Paso I  — Posicionar
- * 3. Paso II — Desplegar
- * 4. Paso III — Proteger
- * 5. Video CTA final
- */
-
 const SCENES = [
   {
     id: "intro",
@@ -39,10 +15,10 @@ const SCENES = [
   {
     id: "brand",
     type: "image",
-    src: "/images/_MG_3235.jpg",
-    label: "EXCELENCIA",
-    heading: ["En cada", "detalle."],
-    sub: "Ingeniería de precisión para la protección\nde su inversión vehicular.",
+    src: "/images/_MG_3189.jpg",
+    label: "PROTECCIÓN PREMIUM",
+    heading: ["Acero y", "resistencia."],
+    sub: "Estructura de acero inoxidable y lona Oxford 600D.\nDiseñado para proteger su vehículo de todo.",
     cta: null,
     align: "left",
   },
@@ -88,8 +64,24 @@ const SCENES = [
   },
 ];
 
-const TOTAL          = SCENES.length;
-const VH_PER_SCENE   = 50; // vh de scroll por escena
+const TOTAL = SCENES.length;
+
+// FIX: Hook para VH_PER_SCENE adaptativo — en mobile el gesto de scroll
+// es más corto, así que cada escena necesita más vh de recorrido
+const useSceneHeight = () => {
+  const [vh, setVh] = useState(50);
+
+  useEffect(() => {
+    const update = () => {
+      setVh(window.innerWidth < 768 ? 70 : 50);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  return vh;
+};
 
 // ─── Escena individual ────────────────────────────────────────────────────────
 const Scene = ({ scene, isActive }) => {
@@ -97,13 +89,11 @@ const Scene = ({ scene, isActive }) => {
   const isVideo  = scene.type === "video";
   const isCenter = scene.align === "center";
 
-  // Control de video — directo por isActive, sin observer
   useEffect(() => {
     const vid = videoRef.current;
     if (!isVideo || !vid) return;
 
     if (isActive) {
-      // Pequeño delay para que la animación de entrada termine
       const t = setTimeout(() => {
         vid.play().catch(() => {});
       }, 200);
@@ -151,12 +141,12 @@ const Scene = ({ scene, isActive }) => {
         }}
       />
 
-      {/* TEXTO */}
+      {/* TEXTO — FIX: padding más generoso en mobile para no pegarse al borde */}
       <div
         className={`absolute z-10 ${
           isCenter
-            ? "inset-0 flex flex-col items-center justify-center text-center px-8"
-            : "bottom-16 md:bottom-24 left-8 md:left-16 lg:left-24 max-w-2xl"
+            ? "inset-0 flex flex-col items-center justify-center text-center px-6 md:px-8"
+            : "bottom-12 md:bottom-24 left-6 md:left-16 lg:left-24 right-6 md:right-auto max-w-2xl"
         }`}
       >
         {/* Eyebrow */}
@@ -165,7 +155,7 @@ const Scene = ({ scene, isActive }) => {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-          className="block text-[9px] md:text-[10px] tracking-[0.5em] text-white/35 font-mono mb-4 md:mb-5 uppercase"
+          className="block text-[9px] md:text-[10px] tracking-[0.5em] text-white/35 font-mono mb-3 md:mb-5 uppercase"
         >
           {scene.label}
         </motion.span>
@@ -184,8 +174,8 @@ const Scene = ({ scene, isActive }) => {
             className="block font-light tracking-tight text-white leading-[1.03]"
             style={{
               fontSize: isCenter
-                ? "clamp(3rem, 9vw, 8rem)"
-                : "clamp(2.4rem, 6vw, 5.5rem)",
+                ? "clamp(2.2rem, 9vw, 8rem)"
+                : "clamp(2rem, 6vw, 5.5rem)",
               textShadow: "0 2px 32px rgba(0,0,0,0.5)",
             }}
           >
@@ -200,7 +190,7 @@ const Scene = ({ scene, isActive }) => {
           animate={{ scaleX: 1 }}
           transition={{ duration: 1.0, delay: 0.42, ease: [0, 0, 0.2, 1] }}
           style={{ originX: isCenter ? 0.5 : 0 }}
-          className={`h-px w-12 bg-white/25 ${isCenter ? "mx-auto my-6" : "my-5"}`}
+          className={`h-px w-12 bg-white/25 ${isCenter ? "mx-auto my-5 md:my-6" : "my-4 md:my-5"}`}
         />
 
         {/* Subtítulo */}
@@ -210,27 +200,27 @@ const Scene = ({ scene, isActive }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.52, ease: [0.25, 0.1, 0.25, 1] }}
-            className="text-gray-400 text-sm md:text-base font-light leading-relaxed whitespace-pre-line"
+            className="text-gray-400 text-xs md:text-base font-light leading-relaxed whitespace-pre-line"
           >
             {scene.sub}
           </motion.p>
         )}
 
-        {/* CTA */}
+        {/* CTA — FIX: botón más grande en mobile para mejor touch target */}
         {scene.cta && (
           <motion.div
             key={`cta-${scene.id}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.62 }}
-            className={isCenter ? "mt-10" : "mt-7"}
+            className={isCenter ? "mt-8 md:mt-10" : "mt-6 md:mt-7"}
           >
             <motion.a
               href={scene.cta.href}
               whileHover={{ backgroundColor: "#fff", color: "#000" }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.3 }}
-              className="inline-block border border-white/40 text-white text-[10px] tracking-[0.3em] font-mono px-10 py-4 transition-colors duration-300"
+              className="inline-block border border-white/40 text-white text-[10px] tracking-[0.3em] font-mono px-8 md:px-10 py-4 transition-colors duration-300"
             >
               {scene.cta.label}
             </motion.a>
@@ -244,7 +234,7 @@ const Scene = ({ scene, isActive }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 pointer-events-none"
+          className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 pointer-events-none"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -260,9 +250,9 @@ const Scene = ({ scene, isActive }) => {
   );
 };
 
-// ─── Indicador lateral tipo Rolex ─────────────────────────────────────────────
+// ─── Indicador lateral — FIX: oculto en mobile para no tapar contenido ───────
 const SideIndicator = ({ activeIndex }) => (
-  <div className="fixed right-5 md:right-8 top-1/2 -translate-y-1/2 z-[200] flex flex-col gap-3 pointer-events-none">
+  <div className="hidden md:flex fixed right-5 md:right-8 top-1/2 -translate-y-1/2 z-[200] flex-col gap-3 pointer-events-none">
     {SCENES.map((_, i) => (
       <motion.div
         key={i}
@@ -285,6 +275,7 @@ const HeroRolex = () => {
   const containerRef             = useRef(null);
   const [activeIndex, setActive] = useState(0);
   const [direction,  setDir]     = useState(1);
+  const vhPerScene               = useSceneHeight();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -292,8 +283,8 @@ const HeroRolex = () => {
 
     const onScroll = () => {
       const top        = container.getBoundingClientRect().top;
-      const scrolledPx = -(top);                          // px desde el inicio del componente
-      const sceneH     = (VH_PER_SCENE / 100) * window.innerHeight;
+      const scrolledPx = -(top);
+      const sceneH     = (vhPerScene / 100) * window.innerHeight;
       const raw        = scrolledPx / sceneH;
       const next       = Math.max(0, Math.min(TOTAL - 1, Math.floor(raw)));
 
@@ -306,11 +297,8 @@ const HeroRolex = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [vhPerScene]);
 
-  // Variantes — la clave del efecto "pisarse":
-  // enter desde abajo con border-radius (parece una hoja que emerge)
-  // exit hacia arriba con leve scale y fade
   const variants = {
     enter: (dir) => ({
       y:            dir > 0 ? "100%" : "-5%",
@@ -348,21 +336,12 @@ const HeroRolex = () => {
 
   return (
     <>
-      {/*
-       * CONTENEDOR: da el espacio de scroll total
-       * TOTAL * 100vh = cuánto hay que scrollear para ver todo
-       * + 100vh extra para que la última escena se vea completa
-       */}
       <section
         ref={containerRef}
         id="inicio"
         className="relative bg-black"
-        style={{ height: `${TOTAL * VH_PER_SCENE + 100}vh` }}
+        style={{ height: `${TOTAL * vhPerScene + 100}vh` }}
       >
-        {/*
-         * PANEL STICKY: siempre visible mientras scrolleás el contenedor
-         * overflow:hidden corta las escenas que entran/salen
-         */}
         <div
           className="sticky top-0 overflow-hidden bg-black"
           style={{ height: "100vh" }}
@@ -382,8 +361,8 @@ const HeroRolex = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Counter top-right */}
-          <div className="absolute top-8 right-16 md:top-10 md:right-20 z-30 pointer-events-none select-none">
+          {/* Counter — FIX: posición adaptada en mobile */}
+          <div className="absolute top-6 right-6 md:top-10 md:right-20 z-30 pointer-events-none select-none">
             <motion.span
               key={activeIndex}
               initial={{ opacity: 0 }}
@@ -397,7 +376,6 @@ const HeroRolex = () => {
         </div>
       </section>
 
-      {/* Indicador fuera del section para que no herede overflow:hidden */}
       <SideIndicator activeIndex={activeIndex} />
     </>
   );

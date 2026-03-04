@@ -54,8 +54,8 @@ const IncludesRolex = () => {
   };
 
   return (
-    <section className="bg-black py-24 md:py-32 lg:py-40 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+    <section className="bg-black py-16 md:py-24 lg:py-40 border-t border-white/10">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-12">
         
         {/* Header */}
         <motion.div
@@ -91,7 +91,7 @@ const IncludesRolex = () => {
               variants={itemVariants}
               className="group relative"
             >
-              <div className="relative p-8 md:p-10 border border-white/10 hover:border-white/30 transition-all duration-500 bg-white/[0.02] hover:bg-white/[0.05]">
+              <div className="relative p-5 md:p-8 lg:p-10 border border-white/10 hover:border-white/30 transition-all duration-500 bg-white/[0.02] hover:bg-white/[0.05]">
                 {/* Corner accents */}
                 <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-white/20 group-hover:border-white/40 transition-colors duration-500" />
                 <div className="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-white/20 group-hover:border-white/40 transition-colors duration-500" />
@@ -122,7 +122,7 @@ const IncludesRolex = () => {
             variants={itemVariants}
             className="group relative md:col-span-2 lg:col-span-1"
           >
-            <div className="relative p-8 md:p-10 border border-white/30 bg-white/[0.05] h-full flex flex-col justify-center items-center text-center">
+            <div className="relative p-5 md:p-8 lg:p-10 border border-white/30 bg-white/[0.05] h-full flex flex-col justify-center items-center text-center">
               {/* Corner accents */}
               <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-white/40" />
               <div className="absolute top-0 right-0 w-8 h-8 border-t border-r border-white/40" />

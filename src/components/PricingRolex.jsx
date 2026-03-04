@@ -10,7 +10,7 @@ const plans = [
   {
     id: 'auto',
     label: 'AUTOS',
-    price: '1.450.000',
+    price: '1.305.000 efectivo',
     currency: 'ARS',
     badge: null,
     description: 'Para sedanes, hatchbacks y utilitarios compactos.',
@@ -28,7 +28,7 @@ const plans = [
   {
     id: 'camioneta',
     label: 'CAMIONETAS',
-    price: '1.600.000',
+    price: '1.440.000 efectivo',
     currency: 'ARS',
     badge: 'MÁS ELEGIDO',
     description: 'Para pickups, SUVs y vehículos de mayor porte.',
@@ -54,8 +54,8 @@ const scrollToContact = () => {
 
 const PricingRolex = () => {
   return (
-    <section id="precios" className="py-32 lg:py-48">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section id="precios" className="py-20 md:py-32 lg:py-48">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
 
         {/* Header */}
         <motion.div
@@ -63,7 +63,7 @@ const PricingRolex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0, 0, 0.2, 1] }}
-          className="text-center mb-24"
+          className="text-center mb-16 md:mb-24"
         >
           <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-6 uppercase">
             INVERSIÓN
@@ -81,7 +81,7 @@ const PricingRolex = () => {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 max-w-4xl mx-auto">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.id}
@@ -102,7 +102,7 @@ const PricingRolex = () => {
 
               {/* Card */}
               <div
-                className={`flex flex-col flex-1 p-10 border transition-colors duration-500 ${
+                className={`flex flex-col flex-1 p-6 md:p-10 border transition-colors duration-500 ${
                   plan.highlight
                     ? 'border-white/20 bg-white/[0.03]'
                     : 'border-white/8 bg-transparent'
@@ -119,27 +119,16 @@ const PricingRolex = () => {
                 </div>
 
                 {/* Price */}
-                <div className="mb-10">
+                <div className="mb-8 md:mb-10">
                   <div className="flex items-start gap-2">
                     <span className="text-white/30 text-sm font-mono mt-2">
                       {plan.currency} $
                     </span>
                     <span
                       className="text-white font-light leading-none"
-                      style={{ fontSize: 'clamp(2.4rem, 5vw, 3.5rem)' }}
+                      style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)' }}
                     >
                       {plan.price}
-                    </span>
-                  </div>
-
-                  {/* Descuento efectivo */}
-                  <div className="mt-3 flex items-center gap-2">
-                    <div className="h-px w-4 bg-white/15" />
-                    <span className="text-[10px] tracking-[0.3em] text-white/25 font-mono">
-                      EFECTIVO: ARS ${
-                        (parseInt(plan.price.replace(/\./g, '')) * 0.9)
-                          .toLocaleString('es-AR')
-                      }
                     </span>
                   </div>
                 </div>
@@ -148,7 +137,7 @@ const PricingRolex = () => {
                 <div className="h-px bg-white/8 mb-8" />
 
                 {/* Includes */}
-                <ul className="space-y-4 mb-10 flex-1">
+                <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10 flex-1">
                   {plan.includes.map((item, j) => (
                     <motion.li
                       key={j}
@@ -205,7 +194,7 @@ const PricingRolex = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-center text-gray-700 text-xs font-mono tracking-[0.2em] mt-12"
+          className="text-center text-gray-700 text-[10px] md:text-xs font-mono tracking-[0.2em] mt-8 md:mt-12"
         >
           PRECIOS SUJETOS A VARIACIÓN · CONSULTAR STOCK DISPONIBLE
         </motion.p>

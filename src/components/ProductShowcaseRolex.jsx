@@ -35,17 +35,17 @@ const ProductShowcaseRolex = () => {
   ];
 
   return (
-    <section id="caracteristicas" className="bg-black py-32 lg:py-48">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section id="caracteristicas" className="bg-black py-20 md:py-32 lg:py-48">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
         {/* Main Image */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
-          className="mb-32"
+          className="mb-16 md:mb-32"
         >
-          <div className="relative h-[70vh] overflow-hidden">
+          <div className="relative h-[50vh] md:h-[70vh] overflow-hidden">
             <img
               src="/images/_MG_3262_1.jpg"
               alt="CARMOTION Premium"
@@ -61,7 +61,7 @@ const ProductShowcaseRolex = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="text-center mb-32 font-playfair"
+          className="text-center mb-16 md:mb-32 font-playfair"
         >
           <h2 
           className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-playfair"
@@ -76,7 +76,7 @@ const ProductShowcaseRolex = () => {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-16 lg:gap-24">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 lg:gap-24">
           {features.map((feature, index) => (
             <motion.div
               key={index}

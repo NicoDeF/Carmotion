@@ -67,8 +67,8 @@ const ContactRolex = () => {
   };
 
   return (
-    <section id="contacto" className="bg-black py-32 lg:py-48 border-t border-white/10">
-      <div className="max-w-4xl mx-auto px-6 lg:px-12">
+    <section id="contacto" className="bg-black py-20 md:py-32 lg:py-48 border-t border-white/10">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-12">
         
         {/* Header */}
         <motion.div
@@ -76,7 +76,7 @@ const ContactRolex = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
         >
           <span className="text-[10px] tracking-[0.4em] text-gray-500 font-light mb-4 block font-body">
             HABLEMOS
@@ -124,7 +124,7 @@ const ContactRolex = () => {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
           onSubmit={handleSubmit}
-          className="space-y-8 border border-white/20 p-10 md:p-14"
+          className="space-y-6 md:space-y-8 border border-white/20 p-5 md:p-10 lg:p-14"
         >
           <div>
             <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">

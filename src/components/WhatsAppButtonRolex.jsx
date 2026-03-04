@@ -30,7 +30,7 @@ const WhatsAppButtonRolex = () => {
         transition={{ delay: 2, duration: 0.5, type: 'spring', stiffness: 200 }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="fixed bottom-8 right-8 z-50 group"
+        className="fixed bottom-6 right-4 md:bottom-8 md:right-8 z-50 group"
         aria-label="Contactar por WhatsApp"
       >
         <div className="relative">
@@ -78,7 +78,7 @@ const WhatsAppButtonRolex = () => {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 10, scale: 0.9 }}
               transition={{ duration: 0.2 }}
-              className="absolute right-20 top-1/2 transform -translate-y-1/2 whitespace-nowrap"
+              className="absolute right-20 top-1/2 transform -translate-y-1/2 whitespace-nowrap hidden md:block"
             >
               <div className="bg-white text-black px-4 py-3 rounded-lg shadow-2xl border border-gray-200">
                 <div className="flex items-center gap-3">
@@ -119,13 +119,13 @@ const WhatsAppButtonRolex = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 3, duration: 0.5 }}
-        className="fixed bottom-28 right-8 z-40"
+        className="fixed bottom-24 right-4 md:bottom-28 md:right-8 z-40"
       >
         <motion.div
           initial={{ opacity: 1 }}
           animate={{ opacity: 0 }}
           transition={{ delay: 8, duration: 1 }}
-          className="bg-white text-gray-900 px-4 py-2 rounded-lg shadow-xl border border-gray-200 max-w-xs"
+          className="bg-white text-gray-900 px-3 py-2 rounded-lg shadow-xl border border-gray-200 max-w-[200px] md:max-w-xs"
         >
           <p className="text-sm font-medium font-body">
             Hola ¿Necesitas ayuda? Escríbenos

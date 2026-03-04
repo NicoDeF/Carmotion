@@ -13,12 +13,25 @@ const HeaderRolex = () => {
   }, []);
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({ top: elementTop - 72, behavior: 'smooth' });
-    }
+    // FIX: cerrar menú primero, esperar a que la animación termine (300ms),
+    // y recién ahí scrollear. Si no, el cierre del menú cambia el layout
+    // y el smooth scroll se cancela o va a la posición incorrecta.
     setMobileMenuOpen(false);
+
+    const doScroll = () => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: elementTop - 72, behavior: 'smooth' });
+      }
+    };
+
+    // Si el menú estaba abierto, esperar a que cierre; si no, scrollear ya
+    if (mobileMenuOpen) {
+      setTimeout(doScroll, 350);
+    } else {
+      doScroll();
+    }
   };
 
   const navLinks = [

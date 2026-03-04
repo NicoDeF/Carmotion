@@ -21,7 +21,7 @@ const YouTubeShowcaseRolex = () => {
 
   return (
     <section id="instalacion" className="bg-black py-24 md:py-32 lg:py-40 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 lg:px-12">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-12">
         
         {/* Header */}
         <motion.div

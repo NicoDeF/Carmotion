@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const EASE = [0.25, 0.1, 0.25, 1];
@@ -34,12 +34,39 @@ const splitColumns = (items, cols) => {
   return columns;
 };
 
-// Alturas variables por columna y posición — asimetría visual
-const HEIGHTS = [
+// Alturas variables por layout — asimetría visual adaptada a cada breakpoint
+const HEIGHTS_3COL = [
   [260, 340, 200, 300, 220, 360, 240],
   [320, 200, 300, 240, 360, 220, 280],
   [200, 300, 360, 220, 280, 320, 240],
 ];
+
+const HEIGHTS_2COL = [
+  [240, 300, 200, 280, 220, 320, 260, 200, 280, 240],
+  [280, 220, 300, 240, 320, 200, 260, 280, 220, 300],
+];
+
+// En mobile 1 columna usamos aspect-ratio en vez de alturas fijas
+// para que las fotos se vean completas
+
+// Hook: cantidad de columnas según ancho de pantalla
+const useColumnCount = () => {
+  const [cols, setCols] = useState(3);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 640) setCols(1);
+      else if (w < 1024) setCols(2);
+      else setCols(3);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  return cols;
+};
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
 const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
@@ -74,7 +101,7 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 10 }}
         transition={{ duration: 0.4, ease: [0.32, 0, 0.15, 1] }}
-        className="relative z-10 max-w-5xl w-full mx-6 md:mx-16"
+        className="relative z-10 max-w-5xl w-full mx-4 md:mx-16"
         onClick={(e) => e.stopPropagation()}
       >
         <img
@@ -102,7 +129,7 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
 
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/40 hover:text-white hover:border-white/40 transition-all duration-200"
+        className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/40 hover:text-white hover:border-white/40 transition-all duration-200"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
@@ -111,7 +138,7 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
 
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/40 hover:text-white hover:border-white/40 transition-all duration-200"
+        className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/40 hover:text-white hover:border-white/40 transition-all duration-200"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
@@ -124,17 +151,21 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
 // ─── GalleryRolex ─────────────────────────────────────────────────────────────
 const GalleryRolex = () => {
   const [selected, setSelected] = useState(null);
+  const cols = useColumnCount();
 
   const open  = useCallback((i) => setSelected(i), []);
   const close = useCallback(() => setSelected(null), []);
   const prev  = useCallback(() => setSelected(i => (i - 1 + IMAGES.length) % IMAGES.length), []);
   const next  = useCallback(() => setSelected(i => (i + 1) % IMAGES.length), []);
 
-  const columns = splitColumns(IMAGES, 3);
+  const columns = useMemo(() => splitColumns(IMAGES, cols), [cols]);
+
+  // Seleccionar alturas según columnas
+  const heights = cols === 3 ? HEIGHTS_3COL : HEIGHTS_2COL;
 
   return (
-    <section id="galeria" className="py-24 md:py-36">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section id="galeria" className="py-16 md:py-24 lg:py-36">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
 
         {/* Header */}
         <motion.div
@@ -142,13 +173,13 @@ const GalleryRolex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0, 0, 0.2, 1] }}
-          className="mb-16"
+          className="mb-10 md:mb-16"
         >
           <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-4 uppercase">
             Galería — CARMOTION
           </span>
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-none"
+            className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-none"
             style={{ fontFamily: 'serif' }}
           >
             En detalle.
@@ -163,12 +194,15 @@ const GalleryRolex = () => {
           />
         </motion.div>
 
-        {/* Masonry — 3 columnas flex con alturas variables */}
+        {/* Masonry — columnas responsivas */}
         <div className="flex gap-2 md:gap-3 items-start">
           {columns.map((col, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-2 md:gap-3 flex-1 min-w-0">
+            <div key={`${cols}-${colIdx}`} className="flex flex-col gap-2 md:gap-3 flex-1 min-w-0">
               {col.map((image, rowIdx) => {
-                const h = HEIGHTS[colIdx % 3][rowIdx % 7];
+                // En 1 columna (mobile): aspect-ratio en vez de altura fija
+                const isMobile = cols === 1;
+                const h = isMobile ? undefined : heights[colIdx % cols][rowIdx % heights[0].length];
+
                 return (
                   <motion.button
                     key={image.originalIndex}
@@ -183,7 +217,7 @@ const GalleryRolex = () => {
                     }}
                     whileHover="hover"
                     className="relative overflow-hidden focus:outline-none w-full shrink-0 block"
-                    style={{ height: `${h}px` }}
+                    style={isMobile ? { aspectRatio: '4/3' } : { height: `${h}px` }}
                     aria-label={`Ver ${image.label}`}
                   >
                     <motion.img
@@ -197,7 +231,7 @@ const GalleryRolex = () => {
 
                     {/* Overlay hover */}
                     <motion.div
-                      className="absolute inset-0 bg-black/55 flex items-end p-4"
+                      className="absolute inset-0 bg-black/55 flex items-end p-3 md:p-4"
                       initial={{ opacity: 0 }}
                       variants={{ hover: { opacity: 1 } }}
                       transition={{ duration: 0.3 }}
