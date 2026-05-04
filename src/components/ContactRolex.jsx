@@ -49,9 +49,10 @@ const ContactRolex = () => {
         setFormData({ name: '', email: '', phone: '', message: '' });
         
         if (window.gtag) {
-          window.gtag('event', 'form_submit', {
-            event_category: 'contact',
-            event_label: 'contact_form',
+          window.gtag('event', 'conversion', {
+            send_to: 'AW-17630288057/L7dhCOO0laccELmx49ZB',
+            value: 1.0,
+            currency: 'ARS',
           });
         }
         
