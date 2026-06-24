@@ -83,7 +83,7 @@ const PressRolex = () => {
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-sm text-gray-600 font-light leading-relaxed mb-8 line-clamp-3">
+                <p className="text-sm text-gray-400 font-light leading-relaxed font-body mb-8 line-clamp-3">
                   {m.excerpt}
                 </p>
 

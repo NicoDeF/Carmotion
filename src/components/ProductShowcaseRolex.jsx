@@ -35,7 +35,7 @@ const ProductShowcaseRolex = () => {
   ];
 
   return (
-    <section id="caracteristicas" className="bg-black py-20 md:py-32 lg:py-48">
+    <section id="caracteristicas" className="py-20 md:py-32 lg:py-48">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
         {/* Main Image */}
         <motion.div
@@ -61,17 +61,16 @@ const ProductShowcaseRolex = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="text-center mb-16 md:mb-32 font-playfair"
+          className="text-center mb-16 md:mb-32"
         >
-          <h2 
-          className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-playfair"
-          style={{ fontFamily: 'serif' }}
+          <h2
+            className="text-3xl md:text-5xl lg:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] mb-8 text-white px-4 font-display"
           >
             CUIDA LO QUE TE MOVILIZA.
           </h2>
-          <p className="text-base md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light tracking-wide px-6 font-playfair">
+          <p className="text-base md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light tracking-wide px-6 font-body">
             Cada elemento de CARMOTION ha sido diseñado con la máxima atención al detalle.
-            Una fusión perfecta entre ingeniería  y elegancia.
+            Una fusión perfecta entre ingeniería y elegancia.
           </p>
         </motion.div>
 
@@ -87,17 +86,17 @@ const ProductShowcaseRolex = () => {
               className="text-center group"
             >
               <div className="mb-8 relative">
-                <span className="text-8xl font-light text-white/5 absolute left-1/2 transform -translate-x-1/2 -top-4 group-hover:text-white/10 transition-colors duration-700 font-playfair">
+                <span className="text-8xl font-light text-white/5 absolute left-1/2 transform -translate-x-1/2 -top-4 group-hover:text-white/10 transition-colors duration-700 font-mono">
                   {feature.number}
                 </span>
-                <span className="text-2xl font-light text-white/30 relative z-10 font-playfair">
+                <span className="text-2xl font-light text-white/30 relative z-10 font-mono">
                   {feature.number}
                 </span>
               </div>
-              <h3 className="text-sm tracking-[0.3em] mb-6 text-white font-light font-playfair">
+              <h3 className="text-sm tracking-[0.3em] mb-6 text-white font-light font-mono">
                 {feature.title}
               </h3>
-              <p className="text-gray-500 leading-relaxed font-light font-playfair">
+              <p className="text-gray-400 leading-relaxed font-light font-body">
                 {feature.description}
               </p>
             </motion.div>

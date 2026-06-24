@@ -33,8 +33,8 @@ export default function AppRolex() {
         <ProductShowcaseRolex />
       </div>
 
-      {/* #111111 — carbono suave */}
-      <div style={{ backgroundColor: '#111111' }}>
+      {/* #0a0a0a — negro cálido */}
+      <div style={{ backgroundColor: '#0a0a0a' }}>
         <PricingRolex />
       </div>
 
@@ -48,8 +48,8 @@ export default function AppRolex() {
         <YouTubeShowcaseRolex />
       </div>
 
-      {/* #111111 — carbono */}
-      <div style={{ backgroundColor: '#111111' }}>
+      {/* #0a0a0a — negro cálido */}
+      <div style={{ backgroundColor: '#0a0a0a' }}>
         <GalleryRolex />
       </div>
 

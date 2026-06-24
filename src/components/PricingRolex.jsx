@@ -8,18 +8,36 @@ import { motion } from 'framer-motion';
 
 const plans = [
   {
+    id: 'moto',
+    label: 'MOTO',
+    price: '699.000',
+    currency: 'ARS $',
+    badge: null,
+    description: 'Para motos y scooters de cualquier cilindrada.',
+    includes: [
+      'Estructura de acero inoxidable',
+      'Lona Oxford 600D impermeable',
+      'Amortiguadores de despliegue',
+      'Anclaje en 7 puntos',
+      '3,3 × 1,4 × 1,9 m (largo/alto/ancho)',
+    ],
+    cta: 'CONSULTAR DISPONIBILIDAD',
+    href: '#contacto',
+    highlight: false,
+  },
+  {
     id: 'auto',
-    label: 'AUTOS',
-    price: '1.305.000 efectivo',
-    currency: 'ARS',
+    label: 'AUTO',
+    price: '1.549.000',
+    currency: 'ARS $',
     badge: null,
     description: 'Para sedanes, hatchbacks y utilitarios compactos.',
     includes: [
       'Estructura de acero inoxidable',
       'Lona Oxford 600D impermeable',
-      'Sistema hidráulico manual',
-      'Anclaje universal 5 posiciones',
-      '5.5m × 2.3m × 2.5m (largo/ancho/alto)'
+      'Amortiguadores de despliegue',
+      'Anclaje en 7 puntos',
+      '5,5 × 2,5 × 2,4 m (largo/alto/ancho)',
     ],
     cta: 'CONSULTAR DISPONIBILIDAD',
     href: '#contacto',
@@ -27,21 +45,39 @@ const plans = [
   },
   {
     id: 'camioneta',
-    label: 'CAMIONETAS',
-    price: '1.440.000 efectivo',
-    currency: 'ARS',
+    label: 'CAMIONETA',
+    price: '1.749.000',
+    currency: 'ARS $',
     badge: 'MÁS ELEGIDO',
     description: 'Para pickups, SUVs y vehículos de mayor porte.',
     includes: [
       'Estructura de acero inoxidable reforzada',
       'Lona Oxford 600D impermeable',
-      'Sistema hidráulico manual',
-      'Anclaje universal 5 posiciones',
-      '6m × 2.3m × 2.7m (largo/ancho/alto)'
+      'Amortiguadores de despliegue',
+      'Anclaje en 7 puntos',
+      '6 × 2,7 × 2,8 m (largo/alto/ancho)',
     ],
     cta: 'CONSULTAR DISPONIBILIDAD',
     href: '#contacto',
     highlight: true,
+  },
+  {
+    id: 'fullsize',
+    label: 'FULLSIZE',
+    price: '1.999.000',
+    currency: 'ARS $',
+    badge: null,
+    description: 'Para camionetas grandes, doble cabina y vehículos de trabajo.',
+    includes: [
+      'Estructura de acero inoxidable reforzada',
+      'Lona Oxford 600D impermeable',
+      'Amortiguadores de despliegue',
+      'Anclaje en 7 puntos',
+      '6,8 × 2,8 × 2,8 m (largo/alto/ancho)',
+    ],
+    cta: 'CONSULTAR DISPONIBILIDAD',
+    href: '#contacto',
+    highlight: false,
   },
 ];
 
@@ -74,14 +110,14 @@ const PricingRolex = () => {
           >
             VALORES DE PROTECCIÓN.
           </h2>
-          <p className="text-gray-500 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed">
-            Aceptamos efectivo, transferencia, todas las tarjetas con cuotas sin interes.<br />
-            10% de descuento abonando en efectivo.
+          <p className="text-gray-400 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed font-body">
+            10% de descuento pagando en efectivo.<br />
+            Tarjeta en cuotas sin interés — todos los medios aceptados.
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.id}
@@ -113,24 +149,19 @@ const PricingRolex = () => {
                   <span className="text-[10px] tracking-[0.4em] text-white/30 font-mono uppercase">
                     {plan.label}
                   </span>
-                  <p className="text-gray-600 text-sm font-light mt-2 leading-relaxed">
+                  <p className="text-gray-400 text-sm font-light mt-2 leading-relaxed font-body">
                     {plan.description}
                   </p>
                 </div>
 
                 {/* Price */}
                 <div className="mb-8 md:mb-10">
-                  <div className="flex items-start gap-2">
-                    <span className="text-white/30 text-sm font-mono mt-2">
-                      {plan.currency} $
-                    </span>
-                    <span
-                      className="text-white font-light leading-none"
-                      style={{ fontSize: 'clamp(1.8rem, 5vw, 3.5rem)' }}
-                    >
-                      {plan.price}
-                    </span>
-                  </div>
+                  <span className="block text-[9px] tracking-[0.3em] text-white/25 font-mono mb-1">
+                    {plan.currency}
+                  </span>
+                  <span className="text-white font-light text-3xl leading-none">
+                    {plan.price}
+                  </span>
                 </div>
 
                 {/* Divisor */}
@@ -145,22 +176,9 @@ const PricingRolex = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.15 + j * 0.07 }}
-                      className="flex items-start gap-3 text-gray-500 text-sm font-light"
+                      className="flex items-start gap-3 text-gray-400 text-sm font-light font-body"
                     >
-                      {/* Checkmark minimalista */}
-                      <svg
-                        className="w-3 h-3 mt-0.5 shrink-0 text-white/20"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                      >
-                        <path
-                          d="M2 6l3 3 5-5"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      <span className="text-white/20 font-mono text-xs mt-0.5 shrink-0 leading-none">—</span>
                       {item}
                     </motion.li>
                   ))}
@@ -178,7 +196,7 @@ const PricingRolex = () => {
                   className={`w-full py-4 text-[10px] tracking-[0.3em] font-mono border transition-colors duration-300 ${
                     plan.highlight
                       ? 'border-white/30 text-white'
-                      : 'border-white/15 text-white/60 hover:text-black'
+                      : 'border-white/15 text-white/50'
                   }`}
                 >
                   {plan.cta}

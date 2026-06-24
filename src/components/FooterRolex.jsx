@@ -34,12 +34,12 @@ const FooterRolex = () => {
                 TELÉFONO
               </p>
               <a 
-                href="https://wa.me/5491144155908"
+                href="https://wa.me/5491171217804"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white font-light hover:text-gray-300 transition-colors font-body"
               >
-                +54 11 4415-5908
+                +54 9 11 7121-7804
               </a>
             </div>
             

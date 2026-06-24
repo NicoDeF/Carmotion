@@ -4,13 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 const EASE = [0.25, 0.1, 0.25, 1];
 
 const IMAGES = [
+  { src: '/images/camio.png',                label: 'Ford protegido' },
+  { src: '/images/nave.png',                 label: 'Corvette protegido' },
+  { src: '/images/utv.jpeg',                 label: 'UTV protegido' },
+  { src: '/images/nico.jpeg',                 label: 'Carmotion en uso' },
   { src: '/images/_MG_3136.jpg',             label: 'Sistema abierto' },
-  { src: '/images/_MG_3212.jpg',             label: 'Cobertor cerrado' },
   { src: '/images/wa1.png',                  label: 'Verde — exterior' },
   { src: '/images/wa2.png',                  label: 'Instalación urbana' },
   { src: '/images/wa3.png',                  label: 'Espacio abierto' },
   { src: '/images/IMG_20251226_183358.jpg',   label: 'Vista interior' },
-  { src: '/images/IMG_20260115_130724.jpg',   label: 'Camioneta protegida' },
   { src: '/images/IMG_20260115_130739.jpg',   label: 'Detalle lateral' },
   { src: '/images/wa9.jpg',                  label: 'Cobertor en campo' },
   { src: '/images/wa4.jpeg',                 label: 'Instalación residencial' },

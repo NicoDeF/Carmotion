@@ -20,7 +20,7 @@ const YouTubeShowcaseRolex = () => {
   ];
 
   return (
-    <section id="instalacion" className="bg-black py-24 md:py-32 lg:py-40 border-t border-white/10">
+    <section id="instalacion" className="py-24 md:py-32 lg:py-40 border-t border-white/10">
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-12">
         
         {/* Header */}
@@ -31,7 +31,7 @@ const YouTubeShowcaseRolex = () => {
           transition={{ duration: 1 }}
           className="text-center mb-16 md:mb-20"
         >
-          <span className="text-[10px] tracking-[0.4em] text-gray-500 font-light mb-4 block font-body">
+          <span className="text-[10px] tracking-[0.4em] text-white/25 font-mono mb-4 block">
             INSTRUCTIVO DE ARMADO
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white mb-6 font-display">
@@ -140,7 +140,7 @@ const YouTubeShowcaseRolex = () => {
               <h4 className="text-[10px] tracking-[0.2em] text-white mt-4 mb-2 font-light font-body">
                 {item.title}
               </h4>
-              <p className="text-gray-500 text-sm font-light font-body">
+              <p className="text-gray-400 text-sm font-light font-body">
                 {item.desc}
               </p>
             </div>
