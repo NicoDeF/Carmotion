@@ -196,6 +196,30 @@ const GalleryRolex = () => {
           />
         </motion.div>
 
+        {/* Stats — social proof */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0, 0, 0.2, 1] }}
+          className="flex flex-wrap items-center gap-8 md:gap-16 mb-12 md:mb-16 pb-12 border-b border-white/[0.06]"
+        >
+          <div>
+            <span className="block text-4xl md:text-6xl font-light text-white leading-none">+100</span>
+            <span className="block text-[9px] tracking-[0.45em] text-white/25 font-mono mt-2 uppercase">Vehículos protegidos</span>
+          </div>
+          <div className="w-px h-10 bg-white/[0.08] hidden sm:block" />
+          <div>
+            <span className="block text-4xl md:text-6xl font-light text-white leading-none">4</span>
+            <span className="block text-[9px] tracking-[0.45em] text-white/25 font-mono mt-2 uppercase">Modelos disponibles</span>
+          </div>
+          <div className="w-px h-10 bg-white/[0.08] hidden sm:block" />
+          <div>
+            <span className="block text-4xl md:text-6xl font-light text-white leading-none">100%</span>
+            <span className="block text-[9px] tracking-[0.45em] text-white/25 font-mono mt-2 uppercase">Garantía incluida</span>
+          </div>
+        </motion.div>
+
         {/* Masonry — columnas responsivas */}
         <div className="flex gap-2 md:gap-3 items-start">
           {columns.map((col, colIdx) => (

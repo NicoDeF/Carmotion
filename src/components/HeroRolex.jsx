@@ -8,7 +8,7 @@ const SCENES = [
     src: "/videos/CarMOtion_01.mp4",
     label: "PROTECCIÓN VEHICULAR PREMIUM",
     heading: ["CARMOTION"],
-    sub: "Dedicados a la protección",
+    sub: "PROTECCIÓN DE ALTO ESTÁNDAR",
     cta: { label: "DESCUBRIR MÁS", href: "#tecnologia" },
     align: "center",
   },
@@ -200,7 +200,11 @@ const Scene = ({ scene, isActive }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.52, ease: [0.25, 0.1, 0.25, 1] }}
-            className="text-gray-400 text-xs md:text-base font-light leading-relaxed whitespace-pre-line"
+            className={`leading-relaxed whitespace-pre-line ${
+              isCenter
+                ? 'text-white/65 text-base md:text-xl tracking-[0.15em] font-mono'
+                : 'text-gray-400 text-xs md:text-base font-light'
+            }`}
           >
             {scene.sub}
           </motion.p>

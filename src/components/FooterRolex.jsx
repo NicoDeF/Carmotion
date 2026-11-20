@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const FooterRolex = () => {
   return (
-    <footer className="bg-black border-t border-white/10">
+    <footer className="bg-black" style={{ borderTop: '1px solid rgba(201, 168, 76, 0.22)' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12 py-16 md:py-24">
         
         {/* Logo */}

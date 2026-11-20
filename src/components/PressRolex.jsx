@@ -36,6 +36,29 @@ const PressRolex = () => {
           </h2>
         </motion.div>
 
+        {/* Logo strip — "Aparecimos en" */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0, 0, 0.2, 1] }}
+          className="flex flex-col items-center mb-16 md:mb-24"
+        >
+          <span className="block text-[9px] tracking-[0.5em] text-white/20 font-mono mb-8 uppercase">Aparecimos en</span>
+          <div className="flex items-center justify-center gap-12 border border-white/[0.06] px-12 py-6">
+            {mentions.map((m) => (
+              <a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer" className="opacity-30 hover:opacity-70 transition-opacity duration-500">
+                <img
+                  src={m.logo}
+                  alt={m.outlet}
+                  className="h-6 w-auto object-contain"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
+              </a>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Cards */}
         <div className="flex flex-wrap justify-center gap-4 md:gap-6">
           {mentions.map((m, i) => (

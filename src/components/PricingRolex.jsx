@@ -130,7 +130,10 @@ const PricingRolex = () => {
               {/* Badge */}
               {plan.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <span className="bg-white text-black text-[8px] tracking-[0.35em] font-mono px-4 py-1.5">
+                  <span
+                    className="text-[8px] tracking-[0.35em] font-mono px-4 py-1.5"
+                    style={{ background: '#C9A84C', color: '#000' }}
+                  >
                     {plan.badge}
                   </span>
                 </div>
@@ -140,9 +143,10 @@ const PricingRolex = () => {
               <div
                 className={`flex flex-col flex-1 p-6 md:p-10 border transition-colors duration-500 ${
                   plan.highlight
-                    ? 'border-white/20 bg-white/[0.03]'
+                    ? 'bg-white/[0.03] glow-gold'
                     : 'border-white/8 bg-transparent'
                 }`}
+                style={plan.highlight ? { borderColor: 'rgba(201, 168, 76, 0.35)' } : {}}
               >
                 {/* Label */}
                 <div className="mb-8">
@@ -187,17 +191,13 @@ const PricingRolex = () => {
                 {/* CTA */}
                 <motion.button
                   onClick={scrollToContact}
-                  whileHover={{
-                    backgroundColor: plan.highlight ? '#fff' : '#fff',
-                    color: '#000',
-                  }}
+                  whileHover={{ backgroundColor: '#fff', color: '#000' }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.25 }}
                   className={`w-full py-4 text-[10px] tracking-[0.3em] font-mono border transition-colors duration-300 ${
-                    plan.highlight
-                      ? 'border-white/30 text-white'
-                      : 'border-white/15 text-white/50'
+                    plan.highlight ? 'text-white' : 'border-white/15 text-white/50'
                   }`}
+                  style={plan.highlight ? { borderColor: 'rgba(201, 168, 76, 0.5)' } : {}}
                 >
                   {plan.cta}
                 </motion.button>
