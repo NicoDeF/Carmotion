@@ -14,9 +14,10 @@
  *   PAYWAY_ENV=sandbox|production
  *   PAYWAY_CLIENT_ID=...  PAYWAY_CLIENT_SECRET=...
  *   PAYWAY_API_URL=...    (obligatorio en producción; sandbox tiene default)
- *   (opcional, aviso de pedidos por mail) SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS ORDER_EMAIL_TO
+ *   Aviso de pedidos por mail: ver api/_lib/order.js
  */
-import { PRODUCT_MAP, PAYMENT_METHODS, INSTALLMENTS, MAX_QTY } from '../src/data/products.js';
+import { PAYMENT_METHODS, INSTALLMENTS } from '../src/data/products.js';
+import { str, validateCart, validateCustomer, newOrderId, linesSummary, notifyOrder } from './_lib/order.js';
 
 const SANDBOX_URL = 'https://api-sandbox.payway.com.ar/api/v2';
 
@@ -41,21 +42,11 @@ async function paywayPost(cfg, path, body) {
 const ALLOWED_METHODS = new Set(PAYMENT_METHODS.map((m) => m.id));
 const ALLOWED_INSTALLMENTS = new Set(INSTALLMENTS);
 
-const str = (v, max = 120) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
-
 function validate(body) {
   const { items, card = {}, paymentMethodId, installments, customer = {} } = body || {};
 
-  if (!Array.isArray(items) || items.length === 0) return { error: 'El carrito está vacío.' };
-
-  const lines = [];
-  for (const it of items) {
-    const product = PRODUCT_MAP[it?.id];
-    const qty = Number(it?.qty);
-    if (!product) return { error: 'Producto inválido en el carrito.' };
-    if (!Number.isInteger(qty) || qty < 1 || qty > MAX_QTY) return { error: 'Cantidad inválida.' };
-    lines.push({ id: product.id, label: product.label, qty, unitPrice: product.price });
-  }
+  const cart = validateCart(items);
+  if (cart.error) return cart;
 
   const cardData = {
     number: String(card.number ?? '').replace(/\D/g, ''),
@@ -76,20 +67,10 @@ function validate(body) {
   if (!ALLOWED_METHODS.has(Number(paymentMethodId))) return { error: 'Medio de pago no aceptado.' };
   if (!ALLOWED_INSTALLMENTS.has(Number(installments))) return { error: 'Cantidad de cuotas inválida.' };
 
-  const c = {
-    name: str(customer.name),
-    email: str(customer.email),
-    phone: str(customer.phone, 40),
-    address: str(customer.address, 200),
-    city: str(customer.city, 80),
-    province: str(customer.province, 80),
-    zip: str(customer.zip, 12),
-  };
-  if (!c.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email) || !c.phone || !c.address || !c.city || !c.zip) {
-    return { error: 'Faltan datos de contacto o envío.' };
-  }
+  const cust = validateCustomer(customer);
+  if (cust.error) return cust;
 
-  const totalPesos = lines.reduce((s, l) => s + l.unitPrice * l.qty, 0);
+  const { lines, totalPesos } = cart;
   return {
     order: {
       lines,
@@ -98,7 +79,7 @@ function validate(body) {
       card: cardData,
       paymentMethodId: Number(paymentMethodId),
       installments: Number(installments),
-      customer: c,
+      customer: cust.customer,
     },
   };
 }
@@ -110,41 +91,6 @@ function rejectionMessage(data) {
     data?.validation_errors?.map((e) => e.param || e.code).join(', ') ||
     data?.error_type;
   return reason ? `Pago no aprobado (${reason}).` : 'El pago no fue aprobado. Probá con otra tarjeta.';
-}
-
-async function notifyOrder(order, payment) {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, ORDER_EMAIL_TO } = process.env;
-  const summary = [
-    `Pedido ${order.siteTransactionId} — APROBADO (pago Payway #${payment.id})`,
-    '',
-    ...order.lines.map((l) => `${l.qty} × ${l.label}  $${l.unitPrice * l.qty}`),
-    `TOTAL: $${order.totalPesos} — ${order.installments} cuota(s)`,
-    '',
-    `Cliente: ${order.customer.name} · ${order.customer.email} · ${order.customer.phone}`,
-    `Envío: ${order.customer.address}, ${order.customer.city}, ${order.customer.province} (${order.customer.zip})`,
-  ].join('\n');
-
-  console.log('\n[ORDER]\n' + summary + '\n');
-  if (!SMTP_HOST || !ORDER_EMAIL_TO) return;
-
-  try {
-    const { default: nodemailer } = await import('nodemailer');
-    const transport = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: Number(SMTP_PORT) || 587,
-      secure: Number(SMTP_PORT) === 465,
-      auth: SMTP_USER ? { user: SMTP_USER, pass: SMTP_PASS } : undefined,
-    });
-    await transport.sendMail({
-      from: SMTP_USER || ORDER_EMAIL_TO,
-      to: ORDER_EMAIL_TO,
-      replyTo: order.customer.email,
-      subject: `Nueva venta CARMOTION — ${order.siteTransactionId}`,
-      text: summary,
-    });
-  } catch (err) {
-    console.error('[ORDER] No se pudo enviar el mail del pedido:', err.message);
-  }
 }
 
 export default async function handler(req, res) {
@@ -161,7 +107,7 @@ export default async function handler(req, res) {
   const { order, error } = validate(req.body);
   if (error) return res.status(400).json({ ok: false, message: error });
 
-  order.siteTransactionId = `CM-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  order.siteTransactionId = newOrderId();
 
   // 1) Tokenizar la tarjeta
   let tokenRes;
@@ -200,7 +146,7 @@ export default async function handler(req, res) {
     amount: order.amountCents,
     currency: 'ARS',
     installments: order.installments,
-    description: `CARMOTION ${order.lines.map((l) => `${l.qty}x${l.label}`).join(' ')}`.slice(0, 100),
+    description: `CARMOTION ${linesSummary(order.lines)}`.slice(0, 100),
     payment_type: 'single',
     sub_payments: [],
   };
@@ -215,7 +161,15 @@ export default async function handler(req, res) {
   }
 
   if (data?.status === 'approved') {
-    await notifyOrder(order, data);
+    await notifyOrder({
+      orderId: order.siteTransactionId,
+      provider: 'Payway',
+      paymentId: data.id,
+      linesText: order.lines.map((l) => `${l.qty} × ${l.label}  $${l.unitPrice * l.qty}`).join('\n'),
+      totalPesos: order.totalPesos,
+      installments: order.installments,
+      customer: order.customer,
+    });
     return res.status(200).json({
       ok: true,
       orderId: order.siteTransactionId,

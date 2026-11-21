@@ -51,6 +51,7 @@ const CheckoutRolex = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [method, setMethod] = useState(PAYMENT_METHODS[0].id);
   const [installments, setInstallments] = useState(1);
+  const [provider, setProvider] = useState('mp'); // 'mp' | 'card'
 
   const handleClose = () => {
     if (phase === 'processing') return;
@@ -70,6 +71,18 @@ const CheckoutRolex = () => {
     );
 
     try {
+      if (provider === 'mp') {
+        const r = await fetch('/api/mp-preference', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: lines.map((l) => ({ id: l.id, qty: l.qty })), customer }),
+        });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok || !data.ok) throw new Error(data.message || 'No pudimos iniciar el pago con Mercado Pago.');
+        window.location.assign(data.initPoint); // vuelve a /?mp=... (ver MpReturnRolex)
+        return;
+      }
+
       const r = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -200,7 +213,39 @@ const CheckoutRolex = () => {
 
                 {/* 03 Pago */}
                 <section>
-                  <SectionTitle n="03">PAGO CON TARJETA</SectionTitle>
+                  <SectionTitle n="03">MEDIO DE PAGO</SectionTitle>
+                  <div className="grid grid-cols-2 gap-3 mb-8" role="radiogroup" aria-label="Medio de pago">
+                    {[
+                      { id: 'mp', title: 'MERCADO PAGO', sub: 'Dinero en cuenta, tarjetas y cuotas' },
+                      { id: 'card', title: 'TARJETA', sub: 'Crédito o débito, vía Payway' },
+                    ].map((opt) => {
+                      const active = provider === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          role="radio"
+                          aria-checked={active}
+                          onClick={() => { setProvider(opt.id); setError(''); }}
+                          className={`text-left px-4 py-4 border transition-colors ${
+                            active ? 'border-[#C9A84C] bg-white/[0.04]' : 'border-white/15 hover:border-white/30'
+                          }`}
+                        >
+                          <span className={`block text-[10px] tracking-[0.3em] font-mono ${active ? 'text-[#C9A84C]' : 'text-white/70'}`}>
+                            {opt.title}
+                          </span>
+                          <span className="block text-xs text-gray-400 font-body mt-1">{opt.sub}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {provider === 'mp' ? (
+                    <p className="text-sm text-gray-300 font-body leading-relaxed border border-white/10 px-4 py-4">
+                      Al continuar te llevamos a Mercado Pago para completar el pago de forma segura.
+                      Ahí elegís tarjeta, cuotas o dinero en cuenta, y después volvés a CARMOTION.
+                    </p>
+                  ) : (
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <Field label="TARJETA" className="col-span-2">
                       <select value={method} onChange={(e) => setMethod(e.target.value)} className={selectCls}>
@@ -252,6 +297,7 @@ const CheckoutRolex = () => {
                       <input name="card_doc_number" inputMode="numeric" required className={inputCls} />
                     </Field>
                   </div>
+                  )}
                 </section>
 
                 {error && (
@@ -265,10 +311,14 @@ const CheckoutRolex = () => {
                   className="w-full py-5 text-[11px] tracking-[0.35em] font-mono text-black disabled:opacity-40"
                   style={{ background: '#C9A84C' }}
                 >
-                  {processing ? 'PROCESANDO PAGO…' : `PAGAR ARS $${formatARS(total)}`}
+                  {processing
+                    ? (provider === 'mp' ? 'REDIRIGIENDO A MERCADO PAGO…' : 'PROCESANDO PAGO…')
+                    : (provider === 'mp' ? `CONTINUAR A MERCADO PAGO · $${formatARS(total)}` : `PAGAR ARS $${formatARS(total)}`)}
                 </motion.button>
                 <p className="text-center text-[9px] tracking-[0.2em] text-white/45 font-mono">
-                  PAGO PROCESADO POR PAYWAY · TUS DATOS VIAJAN CIFRADOS Y NO SE GUARDAN{PAYWAY_ENV === 'sandbox' ? ' · MODO PRUEBA' : ''}
+                  {provider === 'mp'
+                    ? 'PAGO PROCESADO POR MERCADO PAGO'
+                    : `PAGO PROCESADO POR PAYWAY · TUS DATOS VIAJAN CIFRADOS Y NO SE GUARDAN${PAYWAY_ENV === 'sandbox' ? ' · MODO PRUEBA' : ''}`}
                 </p>
               </form>
 

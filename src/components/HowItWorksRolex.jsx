@@ -10,19 +10,19 @@ const HowItWorksRolex = () => {
       number: 'I',
       title: 'POSICIONAR',
       description: 'Estacione su vehículo en la ubicación deseada. CARMOTION se adapta a cualquier superficie.',
-      image: '/images/_MG_3353_1.jpg',
+      image: '/images/opt/_MG_3353_1-2400.webp',
     },
     {
       number: 'II',
       title: 'DESPLEGAR',
       description: 'El sistema hidráulico despliega el cobertor en segundos, sin esfuerzo.',
-      image: '/images/_MG_3347_1.jpg',
+      image: '/images/opt/_MG_3347_1-2400.webp',
     },
     {
       number: 'III',
       title: 'PROTEGER',
       description: 'Protección total activada. Resistencia certificada contra elementos extremos.',
-      image: '/images/_MG_3338_1_1.jpg',
+      image: '/images/opt/_MG_3338_1_1-2400.webp',
     },
   ];
 

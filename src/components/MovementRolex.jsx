@@ -95,7 +95,7 @@ export default function MovementRolex() {
           >
             {/* Image */}
             <img
-              src="/images/_MG_3184_1.jpg"
+              src="/images/opt/_MG_3184_1-1600.webp"
               alt="CARMOTION — Sistema desplegado"
               className="w-full block"
               draggable={false}
@@ -136,7 +136,7 @@ export default function MovementRolex() {
             }}
           >
             <img
-              src="/images/_MG_3184_1.jpg"
+              src="/images/opt/_MG_3184_1-1600.webp"
               className="w-full block"
               draggable={false}
             />

@@ -11,6 +11,7 @@ import FooterRolex from './components/FooterRolex';
 import WhatsAppButtonRolex from './components/WhatsAppButtonRolex';
 import CartDrawerRolex from './components/CartDrawerRolex';
 import CheckoutRolex from './components/CheckoutRolex';
+import MpReturnRolex from './components/MpReturnRolex';
 import { CartProvider } from './context/CartContext';
 
 /**
@@ -71,6 +72,7 @@ export default function AppRolex() {
       <WhatsAppButtonRolex />
       <CartDrawerRolex />
       <CheckoutRolex />
+      <MpReturnRolex />
     </div>
     </CartProvider>
   );

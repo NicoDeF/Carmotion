@@ -35,7 +35,7 @@ const SCENES = [
   {
     id: "paso-1",
     type: "image",
-    src: "/images/_MG_3353_1.jpg",
+    src: "/images/opt/_MG_3353_1-2400.webp",
     label: "PASO I",
     heading: ["Posicionar."],
     sub: "Estacione su vehículo en la ubicación deseada.\nCARMOTION se adapta a cualquier superficie.",
@@ -45,7 +45,7 @@ const SCENES = [
   {
     id: "paso-2",
     type: "image",
-    src: "/images/_MG_3347_1.jpg",
+    src: "/images/opt/_MG_3347_1-2400.webp",
     label: "PASO II",
     heading: ["Desplegar."],
     sub: "El sistema despliega el cobertor en minutos,\nsin herramientas ni esfuerzo.",
@@ -55,7 +55,7 @@ const SCENES = [
   {
     id: "paso-3",
     type: "image",
-    src: "/images/_MG_3338_1_1.jpg",
+    src: "/images/opt/_MG_3338_1_1-2400.webp",
     label: "PASO III",
     heading: ["Proteger."],
     sub: "Protección total activada. Resistencia certificada\ncontra granizo, viento y rayos UV.",

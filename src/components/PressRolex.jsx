@@ -8,7 +8,7 @@ const mentions = [
       "Con una inversión inicial de US$25.000, los socios trajeron 55 unidades de las cuales ya tienen vendidas la mitad.",
     url: "https://www.lanacion.com.ar/propiedades/construccion-y-diseno/es-argentino-y-su-pasion-por-los-autos-lo-llevo-a-crear-un-negocio-impensado-nid01052026/",
     logo: "/logos/lanacion.webp",
-    image: "/images/prensa-lanacion.jpg",
+    image: "/images/opt/prensa-lanacion-800.webp",
   },
 ];
 
