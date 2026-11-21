@@ -5,6 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    open: true
+    open: true,
+    // /api → servidor local de pagos (npm run dev:api)
+    proxy: {
+      '/api': 'http://localhost:4000'
+    }
   }
 })

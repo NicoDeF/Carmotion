@@ -142,7 +142,7 @@ const Scene = ({ scene, isActive }) => {
             : "bottom-16 md:bottom-24 left-8 md:left-16 lg:left-24 max-w-2xl"
         }`}
       >
-        <span className="block text-[9px] md:text-[10px] tracking-[0.5em] text-white/35 font-mono mb-4 md:mb-5 uppercase">
+        <span className="block text-[9px] md:text-[10px] tracking-[0.5em] text-white/55 font-mono mb-4 md:mb-5 uppercase">
           {scene.label}
         </span>
 
@@ -175,7 +175,7 @@ const Scene = ({ scene, isActive }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            className="text-gray-400 text-sm md:text-base font-light leading-relaxed whitespace-pre-line"
+            className="text-gray-300 text-sm md:text-base font-light leading-relaxed whitespace-pre-line"
           >
             {scene.sub}
           </motion.p>
@@ -337,7 +337,7 @@ const ScrollStacker = () => {
 
               {/* Counter */}
               <div className="absolute top-8 right-8 md:top-10 md:right-12 z-20 pointer-events-none select-none">
-                <span className="text-[9px] tracking-[0.35em] text-white/20 font-mono tabular-nums">
+                <span className="text-[9px] tracking-[0.35em] text-white/40 font-mono tabular-nums">
                   {String(activeIndex + 1).padStart(2, "0")} / {String(SCENES.length).padStart(2, "0")}
                 </span>
               </div>

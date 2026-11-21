@@ -9,6 +9,9 @@ import PressRolex from './components/PressRolex';
 import ContactRolex from './components/ContactRolex';
 import FooterRolex from './components/FooterRolex';
 import WhatsAppButtonRolex from './components/WhatsAppButtonRolex';
+import CartDrawerRolex from './components/CartDrawerRolex';
+import CheckoutRolex from './components/CheckoutRolex';
+import { CartProvider } from './context/CartContext';
 
 /**
  * Tonalidades alternadas por sección:
@@ -22,6 +25,7 @@ import WhatsAppButtonRolex from './components/WhatsAppButtonRolex';
 
 export default function AppRolex() {
   return (
+    <CartProvider>
     <div className="min-h-screen" style={{ backgroundColor: '#000' }}>
       <HeaderRolex />
 
@@ -65,6 +69,9 @@ export default function AppRolex() {
       </div>
 
       <WhatsAppButtonRolex />
+      <CartDrawerRolex />
+      <CheckoutRolex />
     </div>
+    </CartProvider>
   );
 }

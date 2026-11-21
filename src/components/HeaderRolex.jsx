@@ -1,6 +1,31 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '/images/logosinletras.png';
+import { useCart } from '../context/CartContext';
+
+const CartButton = () => {
+  const { count, openDrawer } = useCart();
+  return (
+    <button
+      onClick={openDrawer}
+      aria-label={`Carrito (${count})`}
+      className="relative flex items-center gap-2 text-[11px] tracking-[0.2em] text-white/80 hover:text-white transition-colors font-light font-body"
+    >
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 7h12l-1 13H7L6 7zm3 0V5a3 3 0 016 0v2" />
+      </svg>
+      <span className="hidden sm:inline">CARRITO</span>
+      {count > 0 && (
+        <span
+          className="min-w-[18px] h-[18px] px-1 flex items-center justify-center text-[9px] font-mono text-black"
+          style={{ background: '#C9A84C' }}
+        >
+          {count}
+        </span>
+      )}
+    </button>
+  );
+};
 
 const HeaderRolex = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -145,7 +170,9 @@ const HeaderRolex = () => {
               </motion.a>
             </div>
 
-            {/* Desktop CTA */}
+            {/* Desktop cart + CTA */}
+            <div className="hidden lg:flex items-center gap-8">
+            <CartButton />
             <motion.a
               href="#contacto"
               onClick={(e) => { e.preventDefault(); scrollToSection('contacto'); }}
@@ -156,14 +183,18 @@ const HeaderRolex = () => {
             >
               CONSULTAR
             </motion.a>
+            </div>
 
-            {/* Mobile toggle */}
-            <button
-              className="lg:hidden text-[11px] tracking-[0.2em] text-gray-400 hover:text-white transition-colors font-light font-body"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? 'CERRAR' : 'MENÚ'}
-            </button>
+            {/* Mobile cart + toggle */}
+            <div className="lg:hidden flex items-center gap-6">
+              <CartButton />
+              <button
+                className="text-[11px] tracking-[0.2em] text-gray-300 hover:text-white transition-colors font-light font-body"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? 'CERRAR' : 'MENÚ'}
+              </button>
+            </div>
           </div>
 
           {/* Mobile menu */}

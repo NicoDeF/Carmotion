@@ -25,7 +25,7 @@ const PressRolex = () => {
           transition={{ duration: 1, ease: [0, 0, 0.2, 1] }}
           className="text-center mb-16 md:mb-24"
         >
-          <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-6 uppercase">
+          <span className="block text-[9px] tracking-[0.5em] text-white/45 font-mono mb-6 uppercase">
             MEDIOS
           </span>
           <h2
@@ -44,7 +44,7 @@ const PressRolex = () => {
           transition={{ duration: 0.8, delay: 0.1, ease: [0, 0, 0.2, 1] }}
           className="flex flex-col items-center mb-16 md:mb-24"
         >
-          <span className="block text-[9px] tracking-[0.5em] text-white/20 font-mono mb-8 uppercase">Aparecimos en</span>
+          <span className="block text-[9px] tracking-[0.5em] text-white/40 font-mono mb-8 uppercase">Aparecimos en</span>
           <div className="flex items-center justify-center gap-12 border border-white/[0.06] px-12 py-6">
             {mentions.map((m) => (
               <a key={m.url} href={m.url} target="_blank" rel="noopener noreferrer" className="opacity-30 hover:opacity-70 transition-opacity duration-500">
@@ -106,12 +106,12 @@ const PressRolex = () => {
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-sm text-gray-400 font-light leading-relaxed font-body mb-8 line-clamp-3">
+                <p className="text-sm text-gray-300 font-light leading-relaxed font-body mb-8 line-clamp-3">
                   {m.excerpt}
                 </p>
 
                 {/* CTA */}
-                <div className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-white/40 font-mono group-hover:text-white/70 transition-colors duration-300">
+                <div className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-white/60 font-mono group-hover:text-white/70 transition-colors duration-300">
                   <span>LEER NOTA</span>
                   <svg
                     className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1"

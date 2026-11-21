@@ -267,13 +267,13 @@ const HowItWorksRolex = () => {
                     </span>
                     
                     <div className="relative z-10">
-                      <span className="text-[10px] tracking-[0.3em] text-gray-500 font-light mb-4 block font-body">
+                      <span className="text-[10px] tracking-[0.3em] text-gray-400 font-light mb-4 block font-body">
                         PASO {step.number}
                       </span>
                       <h4 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-wide mb-6 md:mb-8 text-white font-display">
                         {step.title}
                       </h4>
-                      <p className="text-gray-400 leading-relaxed text-base md:text-lg font-light font-body">
+                      <p className="text-gray-300 leading-relaxed text-base md:text-lg font-light font-body">
                         {step.description}
                       </p>
                     </div>

@@ -79,7 +79,7 @@ const ContactRolex = () => {
           transition={{ duration: 1 }}
           className="text-center mb-12 md:mb-20"
         >
-          <span className="text-[10px] tracking-[0.4em] text-gray-500 font-light mb-4 block font-body">
+          <span className="text-[10px] tracking-[0.4em] text-gray-400 font-light mb-4 block font-body">
             HABLEMOS
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white font-display">
@@ -97,7 +97,7 @@ const ContactRolex = () => {
             <p className="text-green-400 text-[11px] tracking-[0.2em] font-body">
               ✅ MENSAJE ENVIADO CORRECTAMENTE
             </p>
-            <p className="text-gray-400 text-xs mt-2 font-body font-light">
+            <p className="text-gray-300 text-xs mt-2 font-body font-light">
               Nos contactaremos a la brevedad
             </p>
           </motion.div>
@@ -112,7 +112,7 @@ const ContactRolex = () => {
             <p className="text-red-400 text-[11px] tracking-[0.2em] font-body">
               ❌ ERROR AL ENVIAR
             </p>
-            <p className="text-gray-400 text-xs mt-2 font-body font-light">
+            <p className="text-gray-300 text-xs mt-2 font-body font-light">
               Por favor intente nuevamente
             </p>
           </motion.div>
@@ -139,7 +139,7 @@ const ContactRolex = () => {
           </a>
           <div className="flex items-center gap-4 mt-8">
             <div className="flex-1 h-px bg-white/10" />
-            <span className="text-[10px] tracking-[0.3em] text-white/20 font-mono">O</span>
+            <span className="text-[10px] tracking-[0.3em] text-white/40 font-mono">O</span>
             <div className="flex-1 h-px bg-white/10" />
           </div>
         </motion.div>
@@ -154,7 +154,7 @@ const ContactRolex = () => {
           className="space-y-6 md:space-y-8 border border-white/20 p-5 md:p-10 lg:p-14"
         >
           <div>
-            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-400 mb-4 font-light font-body">
               NOMBRE COMPLETO *
             </label>
             <input
@@ -170,7 +170,7 @@ const ContactRolex = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-400 mb-4 font-light font-body">
               CORREO ELECTRÓNICO *
             </label>
             <input
@@ -186,7 +186,7 @@ const ContactRolex = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-400 mb-4 font-light font-body">
               TELÉFONO *
             </label>
             <input
@@ -202,7 +202,7 @@ const ContactRolex = () => {
           </div>
 
           <div>
-            <label className="block text-[10px] tracking-[0.3em] text-gray-500 mb-4 font-light font-body">
+            <label className="block text-[10px] tracking-[0.3em] text-gray-400 mb-4 font-light font-body">
               CONSULTA
             </label>
             <textarea

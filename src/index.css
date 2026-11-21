@@ -173,3 +173,20 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+/* Legibilidad: Lato 300 sobre negro se ve apagado → texto de cuerpo en 400 */
+.font-body.font-light {
+  font-weight: 400;
+}
+
+/* Desplegables oscuros (checkout): lista oscura en Windows + flecha dorada */
+.select-dark {
+  -webkit-appearance: none;
+  appearance: none;
+  color-scheme: dark;
+  background-color: #0a0a0a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23C9A84C' stroke-width='1.5'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 12px;
+  background-position: right 14px center;
+}

@@ -31,13 +31,13 @@ const YouTubeShowcaseRolex = () => {
           transition={{ duration: 1 }}
           className="text-center mb-16 md:mb-20"
         >
-          <span className="text-[10px] tracking-[0.4em] text-white/25 font-mono mb-4 block">
+          <span className="text-[10px] tracking-[0.4em] text-white/45 font-mono mb-4 block">
             INSTRUCTIVO DE ARMADO
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white mb-6 font-display">
             INSTALACIÓN SIMPLE
           </h2>
-          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed font-body">
+          <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed font-body">
             Mirá el video paso a paso y descubrí lo fácil que es armar tu CARMOTION.
             En minutos tenés tu vehículo protegido.
           </p>
@@ -134,13 +134,13 @@ const YouTubeShowcaseRolex = () => {
         >
           {features.map((item, index) => (
             <div key={index} className="text-center py-6 border-t border-white/10">
-              <span className="text-3xl font-light text-white/20 font-display">
+              <span className="text-3xl font-light text-white/40 font-display">
                 {item.number}
               </span>
               <h4 className="text-[10px] tracking-[0.2em] text-white mt-4 mb-2 font-light font-body">
                 {item.title}
               </h4>
-              <p className="text-gray-400 text-sm font-light font-body">
+              <p className="text-gray-300 text-sm font-light font-body">
                 {item.desc}
               </p>
             </div>

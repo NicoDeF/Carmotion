@@ -68,7 +68,7 @@ export default function MovementRolex() {
           transition={{ duration: 1 }}
           className="text-center mb-16 md:mb-24"
         >
-          <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-5 uppercase">
+          <span className="block text-[9px] tracking-[0.5em] text-white/45 font-mono mb-5 uppercase">
             CARMOTION
           </span>
           <h2
@@ -158,7 +158,7 @@ export default function MovementRolex() {
             ['ANCLAJE', '7 puntos de fijación'],
           ].map(([label, value]) => (
             <div key={label} className="text-center">
-              <span className="block text-[8px] tracking-[0.45em] text-white/20 font-mono mb-2 uppercase">
+              <span className="block text-[8px] tracking-[0.45em] text-white/40 font-mono mb-2 uppercase">
                 {label}
               </span>
               <span className="text-sm font-light text-white/55 font-body">{value}</span>

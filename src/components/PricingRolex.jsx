@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { PRODUCTS, formatARS } from '../data/products';
+import { useCart } from '../context/CartContext';
 
 /**
  * PricingRolex — Sección de precios
@@ -6,80 +8,7 @@ import { motion } from 'framer-motion';
  * Fondo: #0a0a0a (alternado con la sección anterior)
  */
 
-const plans = [
-  {
-    id: 'moto',
-    label: 'MOTO',
-    price: '699.000',
-    currency: 'ARS $',
-    badge: null,
-    description: 'Para motos y scooters de cualquier cilindrada.',
-    includes: [
-      'Estructura de acero inoxidable',
-      'Lona Oxford 600D impermeable',
-      'Amortiguadores de despliegue',
-      'Anclaje en 7 puntos',
-      '3,3 × 1,4 × 1,9 m (largo/alto/ancho)',
-    ],
-    cta: 'CONSULTAR DISPONIBILIDAD',
-    href: '#contacto',
-    highlight: false,
-  },
-  {
-    id: 'auto',
-    label: 'AUTO',
-    price: '1.549.000',
-    currency: 'ARS $',
-    badge: null,
-    description: 'Para sedanes, hatchbacks y utilitarios compactos.',
-    includes: [
-      'Estructura de acero inoxidable',
-      'Lona Oxford 600D impermeable',
-      'Amortiguadores de despliegue',
-      'Anclaje en 7 puntos',
-      '5,5 × 2,5 × 2,4 m (largo/alto/ancho)',
-    ],
-    cta: 'CONSULTAR DISPONIBILIDAD',
-    href: '#contacto',
-    highlight: false,
-  },
-  {
-    id: 'camioneta',
-    label: 'CAMIONETA',
-    price: '1.749.000',
-    currency: 'ARS $',
-    badge: 'MÁS ELEGIDO',
-    description: 'Para pickups, SUVs y vehículos de mayor porte.',
-    includes: [
-      'Estructura de acero inoxidable reforzada',
-      'Lona Oxford 600D impermeable',
-      'Amortiguadores de despliegue',
-      'Anclaje en 7 puntos',
-      '6 × 2,7 × 2,8 m (largo/alto/ancho)',
-    ],
-    cta: 'CONSULTAR DISPONIBILIDAD',
-    href: '#contacto',
-    highlight: true,
-  },
-  {
-    id: 'fullsize',
-    label: 'FULLSIZE',
-    price: '1.999.000',
-    currency: 'ARS $',
-    badge: null,
-    description: 'Para camionetas grandes, doble cabina y vehículos de trabajo.',
-    includes: [
-      'Estructura de acero inoxidable reforzada',
-      'Lona Oxford 600D impermeable',
-      'Amortiguadores de despliegue',
-      'Anclaje en 7 puntos',
-      '6,8 × 2,8 × 2,8 m (largo/alto/ancho)',
-    ],
-    cta: 'CONSULTAR DISPONIBILIDAD',
-    href: '#contacto',
-    highlight: false,
-  },
-];
+const plans = PRODUCTS;
 
 const scrollToContact = () => {
   const el = document.getElementById('contacto');
@@ -89,6 +18,8 @@ const scrollToContact = () => {
 };
 
 const PricingRolex = () => {
+  const { add } = useCart();
+
   return (
     <section id="precios" className="py-20 md:py-32 lg:py-48">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
@@ -101,7 +32,7 @@ const PricingRolex = () => {
           transition={{ duration: 1, ease: [0, 0, 0.2, 1] }}
           className="text-center mb-16 md:mb-24"
         >
-          <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-6 uppercase">
+          <span className="block text-[9px] tracking-[0.5em] text-white/45 font-mono mb-6 uppercase">
             INVERSIÓN
           </span>
           <h2
@@ -110,7 +41,7 @@ const PricingRolex = () => {
           >
             VALORES DE PROTECCIÓN.
           </h2>
-          <p className="text-gray-400 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed font-body">
+          <p className="text-gray-300 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed font-body">
             10% de descuento pagando en efectivo.<br />
             Tarjeta en cuotas sin interés — todos los medios aceptados.
           </p>
@@ -150,21 +81,21 @@ const PricingRolex = () => {
               >
                 {/* Label */}
                 <div className="mb-8">
-                  <span className="text-[10px] tracking-[0.4em] text-white/30 font-mono uppercase">
+                  <span className="text-[10px] tracking-[0.4em] text-white/50 font-mono uppercase">
                     {plan.label}
                   </span>
-                  <p className="text-gray-400 text-sm font-light mt-2 leading-relaxed font-body">
+                  <p className="text-gray-300 text-sm font-light mt-2 leading-relaxed font-body">
                     {plan.description}
                   </p>
                 </div>
 
                 {/* Price */}
                 <div className="mb-8 md:mb-10">
-                  <span className="block text-[9px] tracking-[0.3em] text-white/25 font-mono mb-1">
-                    {plan.currency}
+                  <span className="block text-[9px] tracking-[0.3em] text-white/45 font-mono mb-1">
+                    ARS $
                   </span>
                   <span className="text-white font-light text-3xl leading-none">
-                    {plan.price}
+                    {formatARS(plan.price)}
                   </span>
                 </div>
 
@@ -180,9 +111,9 @@ const PricingRolex = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.15 + j * 0.07 }}
-                      className="flex items-start gap-3 text-gray-400 text-sm font-light font-body"
+                      className="flex items-start gap-3 text-gray-300 text-sm font-light font-body"
                     >
-                      <span className="text-white/20 font-mono text-xs mt-0.5 shrink-0 leading-none">—</span>
+                      <span className="text-white/40 font-mono text-xs mt-0.5 shrink-0 leading-none">—</span>
                       {item}
                     </motion.li>
                   ))}
@@ -190,7 +121,7 @@ const PricingRolex = () => {
 
                 {/* CTA */}
                 <motion.button
-                  onClick={scrollToContact}
+                  onClick={() => add(plan.id)}
                   whileHover={{ backgroundColor: '#fff', color: '#000' }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.25 }}
@@ -199,8 +130,14 @@ const PricingRolex = () => {
                   }`}
                   style={plan.highlight ? { borderColor: 'rgba(201, 168, 76, 0.5)' } : {}}
                 >
-                  {plan.cta}
+                  AGREGAR AL CARRITO
                 </motion.button>
+                <button
+                  onClick={scrollToContact}
+                  className="mt-3 text-[9px] tracking-[0.3em] text-white/50 hover:text-white/70 transition-colors font-mono"
+                >
+                  O CONSULTAR DISPONIBILIDAD
+                </button>
               </div>
             </motion.div>
           ))}
@@ -212,7 +149,7 @@ const PricingRolex = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-center text-gray-700 text-[10px] md:text-xs font-mono tracking-[0.2em] mt-8 md:mt-12"
+          className="text-center text-gray-500 text-[10px] md:text-xs font-mono tracking-[0.2em] mt-8 md:mt-12"
         >
           PRECIOS SUJETOS A VARIACIÓN · CONSULTAR STOCK DISPONIBLE
         </motion.p>

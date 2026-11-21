@@ -155,7 +155,7 @@ const Scene = ({ scene, isActive }) => {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-          className="block text-[9px] md:text-[10px] tracking-[0.5em] text-white/35 font-mono mb-3 md:mb-5 uppercase"
+          className="block text-[9px] md:text-[10px] tracking-[0.5em] text-white/55 font-mono mb-3 md:mb-5 uppercase"
         >
           {scene.label}
         </motion.span>
@@ -203,7 +203,7 @@ const Scene = ({ scene, isActive }) => {
             className={`leading-relaxed whitespace-pre-line ${
               isCenter
                 ? 'text-white/65 text-base md:text-xl tracking-[0.15em] font-mono'
-                : 'text-gray-400 text-xs md:text-base font-light'
+                : 'text-gray-300 text-xs md:text-base font-light'
             }`}
           >
             {scene.sub}
@@ -245,7 +245,7 @@ const Scene = ({ scene, isActive }) => {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center gap-2"
           >
-            <span className="text-[8px] tracking-[0.4em] text-white/25 font-mono">SCROLL</span>
+            <span className="text-[8px] tracking-[0.4em] text-white/45 font-mono">SCROLL</span>
             <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
           </motion.div>
         </motion.div>
@@ -372,7 +372,7 @@ const HeroRolex = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="text-[9px] tracking-[0.35em] text-white/20 font-mono tabular-nums"
+              className="text-[9px] tracking-[0.35em] text-white/40 font-mono tabular-nums"
             >
               {String(activeIndex + 1).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
             </motion.span>

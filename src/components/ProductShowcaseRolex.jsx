@@ -68,7 +68,7 @@ const ProductShowcaseRolex = () => {
           >
             CUIDA LO QUE TE MOVILIZA.
           </h2>
-          <p className="text-base md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-light tracking-wide px-6 font-body">
+          <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light tracking-wide px-6 font-body">
             Cada elemento de CARMOTION ha sido diseñado con la máxima atención al detalle.
             Una fusión perfecta entre ingeniería y elegancia.
           </p>
@@ -89,14 +89,14 @@ const ProductShowcaseRolex = () => {
                 <span className="text-8xl font-light text-white/5 absolute left-1/2 transform -translate-x-1/2 -top-4 group-hover:text-white/10 transition-colors duration-700 font-mono">
                   {feature.number}
                 </span>
-                <span className="text-2xl font-light text-white/30 relative z-10 font-mono">
+                <span className="text-2xl font-light text-white/50 relative z-10 font-mono">
                   {feature.number}
                 </span>
               </div>
               <h3 className="text-sm tracking-[0.3em] mb-6 text-white font-light font-mono">
                 {feature.title}
               </h3>
-              <p className="text-gray-400 leading-relaxed font-light font-body">
+              <p className="text-gray-300 leading-relaxed font-light font-body">
                 {feature.description}
               </p>
             </motion.div>

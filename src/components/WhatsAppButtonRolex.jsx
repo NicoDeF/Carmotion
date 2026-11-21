@@ -100,7 +100,7 @@ const WhatsAppButtonRolex = () => {
                     <p className="text-sm font-medium text-gray-900 font-body">
                       Consultas y Asesoramiento
                     </p>
-                    <p className="text-xs text-gray-600 font-body font-light">
+                    <p className="text-xs text-gray-500 font-body font-light">
                       Respondemos en minutos
                     </p>
                   </div>

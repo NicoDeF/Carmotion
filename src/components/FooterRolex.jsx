@@ -15,7 +15,7 @@ const FooterRolex = () => {
           <h3 className="text-4xl font-light tracking-wide text-white mb-4 font-display">
             CARMOTION
           </h3>
-          <p className="text-[10px] tracking-[0.3em] text-gray-500 font-light font-body">
+          <p className="text-[10px] tracking-[0.3em] text-gray-400 font-light font-body">
             PROTECCIÓN PREMIUM
           </p>
         </motion.div>
@@ -30,7 +30,7 @@ const FooterRolex = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 text-center">
             <div>
-              <p className="text-[10px] tracking-[0.3em] text-gray-500 mb-3 font-light font-body">
+              <p className="text-[10px] tracking-[0.3em] text-gray-400 mb-3 font-light font-body">
                 TELÉFONO
               </p>
               <a 
@@ -44,7 +44,7 @@ const FooterRolex = () => {
             </div>
             
             <div>
-              <p className="text-[10px] tracking-[0.3em] text-gray-500 mb-3 font-light font-body">
+              <p className="text-[10px] tracking-[0.3em] text-gray-400 mb-3 font-light font-body">
                 CORREO
               </p>
               <a 
@@ -56,14 +56,14 @@ const FooterRolex = () => {
             </div>
             
             <div>
-              <p className="text-[10px] tracking-[0.3em] text-gray-500 mb-3 font-light font-body">
+              <p className="text-[10px] tracking-[0.3em] text-gray-400 mb-3 font-light font-body">
                 UBICACIÓN
               </p>
               <p className="text-white font-light font-body">Buenos Aires, Argentina</p>
             </div>
 
             <div>
-              <p className="text-[10px] tracking-[0.3em] text-gray-500 mb-3 font-light font-body">
+              <p className="text-[10px] tracking-[0.3em] text-gray-400 mb-3 font-light font-body">
                 INSTAGRAM
               </p>
               <a 
@@ -83,17 +83,17 @@ const FooterRolex = () => {
        
         {/* Copyright */}
         <div className="space-y-4 text-center">
-          <p className="text-[10px] tracking-[0.2em] text-gray-600 font-light font-body">
+          <p className="text-[10px] tracking-[0.2em] text-gray-500 font-light font-body">
             © 2025 CARMOTION ARGENTINA. TODOS LOS DERECHOS RESERVADOS.
           </p>
           
           {/* Dev Credit */}
           <div className="pt-4 border-t border-white/5">
-            <p className="text-[10px] text-gray-700 font-light font-body">
+            <p className="text-[10px] text-gray-500 font-light font-body">
               Developed by{' '}
               <a 
                 href="mailto:nicodf87@gmail.com"
-                className="text-gray-500 hover:text-gray-400 transition-colors underline decoration-dotted"
+                className="text-gray-400 hover:text-gray-300 transition-colors underline decoration-dotted"
               >
                 nicodf87@gmail.com
               </a>

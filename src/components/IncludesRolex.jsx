@@ -85,7 +85,7 @@ const IncludesRolex = () => {
           transition={{ duration: 1, ease: [0, 0, 0.2, 1] }}
           className="text-center mb-20 md:mb-28"
         >
-          <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-6 uppercase">
+          <span className="block text-[9px] tracking-[0.5em] text-white/45 font-mono mb-6 uppercase">
             TODO INCLUIDO
           </span>
           <h2
@@ -94,7 +94,7 @@ const IncludesRolex = () => {
           >
             ¿QUÉ INCLUYE?
           </h2>
-          <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed font-body">
+          <p className="text-gray-300 text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed font-body">
             Todo lo necesario para proteger tu vehículo desde el primer día.<br />
             Sin costos ocultos. Sin sorpresas.
           </p>
@@ -115,12 +115,12 @@ const IncludesRolex = () => {
               className="group relative bg-[#0a0a0a] p-10 md:p-14 hover:bg-white/[0.04] transition-colors duration-500"
             >
               {/* Number */}
-              <span className="block text-[9px] tracking-[0.4em] text-white/15 font-mono mb-8">
+              <span className="block text-[9px] tracking-[0.4em] text-white/30 font-mono mb-8">
                 {item.number}
               </span>
 
               {/* Icon */}
-              <div className="text-white/30 group-hover:text-white/60 transition-colors duration-500 mb-8">
+              <div className="text-white/50 group-hover:text-white/60 transition-colors duration-500 mb-8">
                 {item.icon}
               </div>
 
@@ -128,11 +128,11 @@ const IncludesRolex = () => {
               <h3 className="text-sm tracking-[0.25em] text-white font-mono mb-3">
                 {item.title}
               </h3>
-              <p className="text-[11px] tracking-[0.2em] text-white/30 font-mono mb-6">
+              <p className="text-[11px] tracking-[0.2em] text-white/50 font-mono mb-6">
                 {item.subtitle}
               </p>
               <div className="h-px bg-white/8 mb-6" />
-              <p className="text-gray-500 text-base leading-relaxed font-light font-body">
+              <p className="text-gray-400 text-base leading-relaxed font-light font-body">
                 {item.description}
               </p>
             </motion.div>
@@ -143,7 +143,7 @@ const IncludesRolex = () => {
             variants={itemVariants}
             className="group relative bg-[#0a0a0a] md:col-span-2 lg:col-span-1 p-10 md:p-14 flex flex-col justify-center items-center text-center hover:bg-white/[0.04] transition-colors duration-500"
           >
-            <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-6">
+            <span className="block text-[9px] tracking-[0.5em] text-white/45 font-mono mb-6">
               ENVÍOS A TODO EL PAÍS
             </span>
             <h3

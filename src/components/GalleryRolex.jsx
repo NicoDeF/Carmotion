@@ -113,10 +113,10 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
           draggable={false}
         />
         <div className="flex items-center justify-between mt-4 px-1">
-          <span className="text-[10px] tracking-[0.4em] text-white/30 font-mono uppercase">
+          <span className="text-[10px] tracking-[0.4em] text-white/50 font-mono uppercase">
             {image.label}
           </span>
-          <span className="text-[10px] tracking-[0.3em] text-white/20 font-mono tabular-nums">
+          <span className="text-[10px] tracking-[0.3em] text-white/40 font-mono tabular-nums">
             {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
           </span>
         </div>
@@ -124,14 +124,14 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
 
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 z-20 text-[10px] tracking-[0.4em] text-white/30 hover:text-white font-mono transition-colors duration-200"
+        className="absolute top-6 right-6 z-20 text-[10px] tracking-[0.4em] text-white/50 hover:text-white font-mono transition-colors duration-200"
       >
         CERRAR ✕
       </button>
 
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/40 hover:text-white hover:border-white/40 transition-all duration-200"
+        className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:text-white hover:border-white/40 transition-all duration-200"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
@@ -140,7 +140,7 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
 
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
-        className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/40 hover:text-white hover:border-white/40 transition-all duration-200"
+        className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:text-white hover:border-white/40 transition-all duration-200"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
@@ -177,7 +177,7 @@ const GalleryRolex = () => {
           transition={{ duration: 1, ease: [0, 0, 0.2, 1] }}
           className="mb-10 md:mb-16"
         >
-          <span className="block text-[9px] tracking-[0.5em] text-white/25 font-mono mb-4 uppercase">
+          <span className="block text-[9px] tracking-[0.5em] text-white/45 font-mono mb-4 uppercase">
             Galería — CARMOTION
           </span>
           <h2
@@ -206,17 +206,17 @@ const GalleryRolex = () => {
         >
           <div>
             <span className="block text-4xl md:text-6xl font-light text-white leading-none">+100</span>
-            <span className="block text-[9px] tracking-[0.45em] text-white/25 font-mono mt-2 uppercase">Vehículos protegidos</span>
+            <span className="block text-[9px] tracking-[0.45em] text-white/45 font-mono mt-2 uppercase">Vehículos protegidos</span>
           </div>
           <div className="w-px h-10 bg-white/[0.08] hidden sm:block" />
           <div>
             <span className="block text-4xl md:text-6xl font-light text-white leading-none">4</span>
-            <span className="block text-[9px] tracking-[0.45em] text-white/25 font-mono mt-2 uppercase">Modelos disponibles</span>
+            <span className="block text-[9px] tracking-[0.45em] text-white/45 font-mono mt-2 uppercase">Modelos disponibles</span>
           </div>
           <div className="w-px h-10 bg-white/[0.08] hidden sm:block" />
           <div>
             <span className="block text-4xl md:text-6xl font-light text-white leading-none">100%</span>
-            <span className="block text-[9px] tracking-[0.45em] text-white/25 font-mono mt-2 uppercase">Garantía incluida</span>
+            <span className="block text-[9px] tracking-[0.45em] text-white/45 font-mono mt-2 uppercase">Garantía incluida</span>
           </div>
         </motion.div>
 
