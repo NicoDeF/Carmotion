@@ -43,7 +43,7 @@ const PricingRolex = () => {
           </h2>
           <p className="text-gray-300 text-base md:text-lg font-light max-w-xl mx-auto leading-relaxed font-body">
             10% de descuento pagando en efectivo.<br />
-            Tarjeta en cuotas sin interés — todos los medios aceptados.
+            Tarjeta hasta 3 cuotas sin interés — todos los medios aceptados.
           </p>
         </motion.div>
 

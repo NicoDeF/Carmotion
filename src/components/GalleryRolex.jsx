@@ -1,34 +1,40 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { img, srcSet, dims } from '../utils/img';
 
 const EASE = [0.25, 0.1, 0.25, 1];
 
 // name = archivo en public/images sin extensión (versiones web: npm run images)
+// video = archivo en public/videos/<video>.mp4 + portada <video>-poster.webp; w/h = tamaño del video
 const IMAGES = [
-  { name: 'camio',                label: 'Ford protegido' },
-  { name: 'nave',                 label: 'Corvette protegido' },
-  { name: 'utv',                  label: 'UTV protegido' },
-  { name: 'nico',                 label: 'Carmotion en uso' },
-  { name: '_MG_3136',             label: 'Sistema abierto' },
-  { name: 'wa1',                  label: 'Verde — exterior' },
-  { name: 'wa2',                  label: 'Instalación urbana' },
-  { name: 'wa3',                  label: 'Espacio abierto' },
-  { name: 'IMG_20251226_183358',  label: 'Vista interior' },
-  { name: 'IMG_20260115_130739',  label: 'Detalle lateral' },
-  { name: 'wa9',                  label: 'Cobertor en campo' },
-  { name: 'wa4',                  label: 'Instalación residencial' },
-  { name: 'wa5',                  label: 'Audi protegido' },
-  { name: 'wa6',                  label: 'Vista completa' },
-  { name: 'wa7',                  label: 'Despliegue abierto' },
-  { name: 'wa8',                  label: 'Verde — jardín' },
-  { name: '_MG_3184_1',           label: 'Sistema desplegado' },
-  { name: '_MG_3191_1',           label: 'Detalle de anclaje' },
-  { name: '_MG_3412_1',           label: 'Vista lateral' },
-  { name: '_MG_3134_1',           label: 'Cobertor en uso' },
-  { name: '_MG_3249_1',           label: 'Instalación premium' },
+  // El orden reparte los videos (▶) entre columnas: si agregás uno, probá que no queden pegados.
+  { name: 'camio',                 label: 'Ford protegido' },
+  { video: 'bmw-carport',        w: 478, h: 850, label: 'BMW — bajo techo' },
+  { name: 'nave',                  label: 'Corvette protegido' },
+  { name: 'utv',                   label: 'UTV protegido' },
+  { name: 'nico',                  label: 'Carmotion en uso' },
+  { name: '_MG_3136',              label: 'Sistema abierto' },
+  { name: 'wa1',                   label: 'Verde — exterior' },
+  { name: 'wa2',                   label: 'Instalación urbana' },
+  { name: 'wa3',                   label: 'Espacio abierto' },
+  { name: 'carmotion_moto',        label: 'Moto protegida' },
+  { video: 'recorrido-interior', w: 478, h: 850, label: 'Recorrido interior' },
+  { video: 'motorbike',          w: 464, h: 832, label: 'Moto — en movimiento' },
+  { name: 'IMG_20260115_130739',   label: 'Detalle lateral' },
+  { name: 'MVIMG_20261005_142826', label: 'Doble instalación' },
+  { name: 'wa4',                   label: 'Instalación residencial' },
+  { name: 'wa5',                   label: 'Audi protegido' },
+  { name: 'IMG-20261009-WA0022',   label: 'Sistema plegado' },
+  { video: 'corvette',           w: 464, h: 832, label: 'Corvette — salida' },
+  { name: 'wa7',                   label: 'Despliegue abierto' },
+  { name: 'wa8',                   label: 'Verde — jardín' },
+  { name: '_MG_3184_1',            label: 'Sistema desplegado' },
+  { name: '_MG_3191_1',            label: 'Detalle de anclaje' },
+  { name: '_MG_3412_1',            label: 'Vista lateral' },
+  { name: '_MG_3134_1',            label: 'Cobertor en uso' },
+  { name: '_MG_3249_1',            label: 'Instalación premium' },
 ].map((im) => {
-  const { w, h } = dims(im.name);
+  const { w, h } = im.video ? im : dims(im.name);
   // Proporción real de la foto; las muy verticales (celular 9:20) se limitan a 2:3
   // para que una sola foto no ocupe toda la columna.
   return { ...im, ratio: Math.max(w / h, 2 / 3) };
@@ -63,6 +69,37 @@ const useColumnCount = () => {
   }, []);
 
   return cols;
+};
+
+const videoSrc = (v) => `/videos/${v}.mp4`;
+const posterSrc = (v) => `/videos/${v}-poster.webp`;
+
+// Video de la grilla: muteado y en loop, solo se descarga/reproduce mientras está visible.
+const GridVideo = ({ video, label }) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) el.play().catch(() => {});
+      else el.pause();
+    }, { threshold: 0.25 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <video
+      ref={ref}
+      src={videoSrc(video)}
+      poster={posterSrc(video)}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-label={label}
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+  );
 };
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
@@ -101,14 +138,26 @@ const Lightbox = ({ image, index, total, onClose, onPrev, onNext }) => {
         className="relative z-10 max-w-5xl w-full mx-4 md:mx-16"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={img(image.name, 1600)}
-          srcSet={srcSet(image.name)}
-          sizes="(min-width: 1024px) 1024px, 100vw"
-          alt={image.label}
-          className="w-full max-h-[80vh] object-contain"
-          draggable={false}
-        />
+        {image.video ? (
+          <video
+            key={image.video}
+            src={videoSrc(image.video)}
+            poster={posterSrc(image.video)}
+            controls
+            autoPlay
+            playsInline
+            className="w-full max-h-[80vh] object-contain bg-black"
+          />
+        ) : (
+          <img
+            src={img(image.name, 1600)}
+            srcSet={srcSet(image.name)}
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            alt={image.label}
+            className="w-full max-h-[80vh] object-contain"
+            draggable={false}
+          />
+        )}
         <div className="flex items-center justify-between mt-4 px-1">
           <span className="text-[10px] tracking-[0.4em] text-white/50 font-mono uppercase">
             {image.label}
@@ -236,18 +285,30 @@ const GalleryRolex = () => {
                     style={{ aspectRatio: image.ratio }}
                     aria-label={`Ver ${image.label}`}
                   >
-                    <motion.img
-                      src={img(image.name, 800)}
-                      srcSet={srcSet(image.name, [800, 1600])}
-                      sizes={cols === 3 ? '(min-width: 1280px) 400px, 33vw' : '50vw'}
-                      loading="lazy"
-                      decoding="async"
-                      alt={image.label}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      draggable={false}
-                      variants={{ hover: { scale: 1.05 } }}
-                      transition={{ duration: 0.6, ease: EASE }}
-                    />
+                    {image.video ? (
+                      <>
+                        <GridVideo video={image.video} label={image.label} />
+                        {/* Ícono play: indica que es un video */}
+                        <div className="absolute bottom-3 left-3 w-8 h-8 rounded-full bg-black/50 border border-white/30 flex items-center justify-center pointer-events-none">
+                          <svg className="w-3 h-3 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </>
+                    ) : (
+                      <motion.img
+                        src={img(image.name, 800)}
+                        srcSet={srcSet(image.name, [800, 1600])}
+                        sizes={cols === 3 ? '(min-width: 1280px) 400px, 33vw' : '50vw'}
+                        loading="lazy"
+                        decoding="async"
+                        alt={image.label}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        draggable={false}
+                        variants={{ hover: { scale: 1.05 } }}
+                        transition={{ duration: 0.6, ease: EASE }}
+                      />
+                    )}
 
                     {/* Overlay hover */}
                     <motion.div

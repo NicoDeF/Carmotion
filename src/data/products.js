@@ -89,7 +89,26 @@ export const PAYMENT_METHODS = [
   { id: 27, label: 'Cabal' },
 ];
 
-/** Cuotas ofrecidas. Las "sin interés" dependen del plan contratado con Payway. */
-export const INSTALLMENTS = [1, 3, 6, 12];
+/** Cuotas ofrecidas con tarjeta (Payway). 1 y 3 sin interés; 6 con recargo. */
+export const INSTALLMENTS = [1, 3, 6];
+
+/** Recargo por cantidad de cuotas (0.2 = 20%). Lo que no figura va sin recargo. */
+export const INSTALLMENT_SURCHARGE = { 6: 0.2 };
+
+/** Total a cobrar en pesos según las cuotas elegidas (con recargo si corresponde). */
+export const totalWithInstallments = (totalPesos, n) =>
+  Math.round(totalPesos * (1 + (INSTALLMENT_SURCHARGE[n] || 0)));
+
+/** Texto de la opción de cuotas para el selector del checkout. */
+export function installmentLabel(totalPesos, n) {
+  const fmt = (v) => new Intl.NumberFormat('es-AR').format(v);
+  if (n === 1) return `1 pago de $${fmt(totalPesos)}`;
+  const charged = totalWithInstallments(totalPesos, n);
+  const each = `${n} cuotas de $${fmt(Math.ceil(charged / n))}`;
+  const pct = INSTALLMENT_SURCHARGE[n];
+  return pct
+    ? `${each} · ${Math.round(pct * 100)}% de recargo`
+    : `${each} sin interés`;
+}
 
 export const formatARS = (pesos) => new Intl.NumberFormat('es-AR').format(pesos);

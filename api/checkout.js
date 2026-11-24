@@ -4,7 +4,8 @@
  * Flujo (todo server-side, la credencial nunca llega al navegador):
  *  1. POST {base}/tokens con los datos de la tarjeta → token + bin.
  *  2. Recalcula el total desde el catálogo y POST {base}/payments.
- *  Auth: header `apikey: <client_id>:<client_secret>`.
+ *  Auth: header `apikey` — clave pública para /tokens, privada para /payments.
+ *  El sitio tiene Cybersource activo: /payments lleva `fraud_detection` (retail).
  *  Los datos de la tarjeta NO se guardan ni se loguean.
  *
  * Funciona como Vercel Serverless Function y también montado en Express
@@ -12,31 +13,98 @@
  *
  * Env:
  *   PAYWAY_ENV=sandbox|production
- *   PAYWAY_CLIENT_ID=...  PAYWAY_CLIENT_SECRET=...
+ *   PAYWAY_PUBLIC_KEY=...  PAYWAY_PRIVATE_KEY=...  PAYWAY_SITE_ID=...
  *   PAYWAY_API_URL=...    (obligatorio en producción; sandbox tiene default)
+ *   (legacy: PAYWAY_CLIENT_ID + PAYWAY_CLIENT_SECRET → apikey "id:secret" para ambos)
  *   Aviso de pedidos por mail: ver api/_lib/order.js
  */
-import { PAYMENT_METHODS, INSTALLMENTS } from '../src/data/products.js';
+import { PAYMENT_METHODS, INSTALLMENTS, totalWithInstallments } from '../src/data/products.js';
 import { str, validateCart, validateCustomer, newOrderId, linesSummary, notifyOrder } from './_lib/order.js';
 
-const SANDBOX_URL = 'https://api-sandbox.payway.com.ar/api/v2';
+const SANDBOX_URL = 'https://developers.decidir.com/api/v2';
 
 function paywayConfig() {
-  const { PAYWAY_ENV, PAYWAY_CLIENT_ID, PAYWAY_CLIENT_SECRET, PAYWAY_API_URL } = process.env;
+  const { PAYWAY_ENV, PAYWAY_PUBLIC_KEY, PAYWAY_PRIVATE_KEY, PAYWAY_CLIENT_ID, PAYWAY_CLIENT_SECRET, PAYWAY_API_URL } =
+    process.env;
   const production = PAYWAY_ENV === 'production';
   const baseUrl = PAYWAY_API_URL || (production ? null : SANDBOX_URL);
-  if (!PAYWAY_CLIENT_ID || !PAYWAY_CLIENT_SECRET || !baseUrl) return null;
-  return { baseUrl: baseUrl.replace(/\/$/, ''), apikey: `${PAYWAY_CLIENT_ID}:${PAYWAY_CLIENT_SECRET}` };
+  if (!baseUrl) return null;
+  const base = baseUrl.replace(/\/$/, '');
+  if (PAYWAY_PUBLIC_KEY && PAYWAY_PRIVATE_KEY) {
+    return { baseUrl: base, publicKey: PAYWAY_PUBLIC_KEY, privateKey: PAYWAY_PRIVATE_KEY };
+  }
+  if (PAYWAY_CLIENT_ID && PAYWAY_CLIENT_SECRET) {
+    const k = `${PAYWAY_CLIENT_ID}:${PAYWAY_CLIENT_SECRET}`;
+    return { baseUrl: base, publicKey: k, privateKey: k };
+  }
+  return null;
 }
 
-async function paywayPost(cfg, path, body) {
+async function paywayPost(cfg, path, body, apikey) {
   const r = await fetch(`${cfg.baseUrl}${path}`, {
     method: 'POST',
-    headers: { apikey: cfg.apikey, 'Content-Type': 'application/json' },
+    headers: { apikey, 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(30000),
   });
   return { status: r.status, data: await r.json().catch(() => null) };
+}
+
+// Código de provincia (ISO 3166-2:AR sin prefijo) que pide Cybersource.
+const PROVINCE_CODES = {
+  CABA: 'C', 'Buenos Aires': 'B', Catamarca: 'K', Chaco: 'H', Chubut: 'U', Córdoba: 'X',
+  Corrientes: 'W', 'Entre Ríos': 'E', Formosa: 'P', Jujuy: 'Y', 'La Pampa': 'L',
+  'La Rioja': 'F', Mendoza: 'M', Misiones: 'N', Neuquén: 'Q', 'Río Negro': 'R', Salta: 'A',
+  'San Juan': 'J', 'San Luis': 'D', 'Santa Cruz': 'Z', 'Santa Fe': 'S',
+  'Santiago del Estero': 'G', 'Tierra del Fuego': 'V', Tucumán: 'T',
+};
+
+/** Datos de prevención de fraude (Cybersource, vertical retail) para /payments. */
+function fraudDetection(order, deviceId) {
+  const c = order.customer;
+  const [firstName, ...rest] = c.name.split(/\s+/);
+  const address = {
+    city: c.city,
+    country: 'AR',
+    customer_id: 'guest', // Cybersource rechaza un email acá (compra como invitado)
+    email: c.email,
+    first_name: firstName,
+    last_name: rest.join(' ') || firstName,
+    phone_number: c.phone.replace(/\D/g, '') || c.phone,
+    postal_code: c.zip,
+    state: PROVINCE_CODES[c.province] || 'B',
+    street1: c.address,
+  };
+  return {
+    send_to_cs: true,
+    channel: 'Web',
+    device_unique_id: deviceId,
+    bill_to: address,
+    purchase_totals: { currency: 'ARS', amount: order.amountCents },
+    customer_in_site: {
+      days_in_site: 0,
+      is_guest: true,
+      password: '',
+      num_of_transactions: 0,
+      cellphone_number: address.phone_number,
+      street: c.address,
+    },
+    retail_transaction_data: {
+      ship_to: address,
+      days_to_delivery: '10',
+      dispatch_method: 'domicilio',
+      tax_voucher_required: false,
+      items: order.lines.map((l) => ({
+        code: l.id,
+        description: (l.description || l.label).slice(0, 100),
+        name: l.label,
+        sku: l.id,
+        total_amount: l.unitPrice * l.qty * 100,
+        quantity: l.qty,
+        unit_price: l.unitPrice * 100,
+      })),
+    },
+  };
 }
 
 const ALLOWED_METHODS = new Set(PAYMENT_METHODS.map((m) => m.id));
@@ -70,7 +138,9 @@ function validate(body) {
   const cust = validateCustomer(customer);
   if (cust.error) return cust;
 
-  const { lines, totalPesos } = cart;
+  const { lines } = cart;
+  // Total a cobrar: incluye el recargo por cuotas (p. ej. 6 cuotas +20%).
+  const totalPesos = totalWithInstallments(cart.totalPesos, Number(installments));
   return {
     order: {
       lines,
@@ -108,6 +178,9 @@ export default async function handler(req, res) {
   if (error) return res.status(400).json({ ok: false, message: error });
 
   order.siteTransactionId = newOrderId();
+  // ID de dispositivo para Cybersource. TODO producción: generarlo en el navegador
+  // con el script de device fingerprint de Payway y mandarlo en el body.
+  const deviceId = str(req.body?.deviceId, 128) || order.siteTransactionId.replace(/\W/g, '');
 
   // 1) Tokenizar la tarjeta
   let tokenRes;
@@ -120,7 +193,8 @@ export default async function handler(req, res) {
       security_code: c.cvv,
       card_holder_name: c.holder,
       card_holder_identification: { type: c.docType, number: c.docNumber },
-    });
+      fraud_detection: { device_unique_identifier: deviceId },
+    }, cfg.publicKey);
   } catch (err) {
     console.error('[PAYWAY] Error de red en /tokens:', err.message);
     return res.status(502).json({ ok: false, message: 'No pudimos contactar al procesador de pagos. Intentá de nuevo.' });
@@ -149,12 +223,13 @@ export default async function handler(req, res) {
     description: `CARMOTION ${linesSummary(order.lines)}`.slice(0, 100),
     payment_type: 'single',
     sub_payments: [],
+    fraud_detection: fraudDetection(order, deviceId),
   };
 
   let data;
   let httpStatus;
   try {
-    ({ status: httpStatus, data } = await paywayPost(cfg, '/payments', payload));
+    ({ status: httpStatus, data } = await paywayPost(cfg, '/payments', payload, cfg.privateKey));
   } catch (err) {
     console.error('[PAYWAY] Error de red:', err.message);
     return res.status(502).json({ ok: false, message: 'No pudimos contactar al procesador de pagos. Intentá de nuevo.' });

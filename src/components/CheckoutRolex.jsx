@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
-import { formatARS, PAYMENT_METHODS, INSTALLMENTS } from '../data/products';
+import { formatARS, PAYMENT_METHODS, INSTALLMENTS, totalWithInstallments, installmentLabel } from '../data/products';
 
 /**
  * CheckoutRolex — datos de envío + tarjeta.
@@ -52,6 +52,8 @@ const CheckoutRolex = () => {
   const [method, setMethod] = useState(PAYMENT_METHODS[0].id);
   const [installments, setInstallments] = useState(1);
   const [provider, setProvider] = useState('mp'); // 'mp' | 'card'
+  const cardTotal = totalWithInstallments(total, Number(installments)); // incluye recargo por cuotas
+  const shownTotal = provider === 'mp' ? total : cardTotal;
 
   const handleClose = () => {
     if (phase === 'processing') return;
@@ -256,7 +258,7 @@ const CheckoutRolex = () => {
                       <select value={installments} onChange={(e) => setInstallments(e.target.value)} className={selectCls}>
                         {INSTALLMENTS.map((n) => (
                           <option key={n} value={n}>
-                            {n === 1 ? `1 pago de $${formatARS(total)}` : `${n} cuotas de $${formatARS(Math.ceil(total / n))}`}
+                            {installmentLabel(total, n)}
                           </option>
                         ))}
                       </select>
@@ -313,7 +315,7 @@ const CheckoutRolex = () => {
                 >
                   {processing
                     ? (provider === 'mp' ? 'REDIRIGIENDO A MERCADO PAGO…' : 'PROCESANDO PAGO…')
-                    : (provider === 'mp' ? `CONTINUAR A MERCADO PAGO · $${formatARS(total)}` : `PAGAR ARS $${formatARS(total)}`)}
+                    : (provider === 'mp' ? `CONTINUAR A MERCADO PAGO · $${formatARS(total)}` : `PAGAR ARS $${formatARS(cardTotal)}`)}
                 </motion.button>
                 <p className="text-center text-[9px] tracking-[0.2em] text-white/45 font-mono">
                   {provider === 'mp'
@@ -339,7 +341,7 @@ const CheckoutRolex = () => {
                 </div>
                 <div className="flex justify-between items-baseline mt-4">
                   <span className="text-[10px] tracking-[0.4em] text-white/60 font-mono">TOTAL</span>
-                  <span className="text-white text-2xl font-light">${formatARS(total)}</span>
+                  <span className="text-white text-2xl font-light">${formatARS(shownTotal)}</span>
                 </div>
               </aside>
             </div>

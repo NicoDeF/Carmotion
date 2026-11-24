@@ -51,7 +51,7 @@ export default async function handler(req, res) {
     // auto_return exige back_urls https; en localhost el cliente vuelve con el botón de MP
     ...(base.startsWith('https://') ? { auto_return: 'approved' } : {}),
     ...(webhookEnabled() ? { notification_url: `${base}/api/mp-webhook?source_news=webhooks` } : {}),
-    payment_methods: { installments: 12 },
+    payment_methods: { installments: 6 },
     metadata: {
       order_id: orderId,
       lines_text: linesSummary(lines),

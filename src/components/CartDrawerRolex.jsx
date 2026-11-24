@@ -111,7 +111,7 @@ const CartDrawerRolex = () => {
                   FINALIZAR COMPRA
                 </motion.button>
                 <p className="text-center text-[9px] tracking-[0.2em] text-white/45 font-mono mt-4">
-                  PAGO SEGURO CON PAYWAY · HASTA 12 CUOTAS
+                  PAGO SEGURO CON PAYWAY · HASTA 3 CUOTAS SIN INTERÉS
                 </p>
               </div>
             )}
