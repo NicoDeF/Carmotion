@@ -11,6 +11,7 @@ Repo: https://github.com/NicoDeF/Carmotion
 - `npm run dev` — frontend (Vite)
 - `npm run dev:api` — API local (Express)
 - `npm run build` — build de producción en `dist/` (se commitea)
+- `npm start` — servidor de producción (`server/index.js`): sirve `dist/` + `/api` (Hostinger, app Node.js)
 - `npm run images` — `scripts/optimize-images.mjs`: genera webp 800/1600/2400 desde `originales/` a `public/images/opt/`
 
 ## Estructura
@@ -31,7 +32,8 @@ Repo: https://github.com/NicoDeF/Carmotion
 - Envío e instalación NO están incluidos en el precio: se aclara en precios, carrito y checkout con link a WhatsApp para consultar
 - El mecanismo es con **amortiguadores**, no hidráulico
 - Device fingerprint: `src/utils/deviceFingerprint.js` genera el deviceId y carga ThreatMetrix al elegir tarjeta (org_id 1snn5n9w sandbox / k8vif92e prod, confirmar con Payway)
-- Hosting: Vercel (proyecto `carmotion-rolex`, ver `.vercel/`)
+- Hosting PRODUCCIÓN: Hostinger plan Business, app Node.js, auto-deploy desde la rama `checkout` (entry `server/index.js`, build `npm run build`). Vercel (`.vercel/`) sólo se usó para testing
+- Variables de producción: hPanel → Node.js → Variables de entorno
 - Pendiente producción: variables en Vercel, claves productivas, mergear a `main`
 
 ## Diseño
