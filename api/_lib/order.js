@@ -15,6 +15,7 @@ export function validateCart(items) {
     const product = PRODUCT_MAP[it?.id];
     const qty = Number(it?.qty);
     if (!product) return { error: 'Producto inválido en el carrito.' };
+    if (product.hidden && process.env.ENABLE_TEST_PRODUCT !== 'true') return { error: 'Producto inválido en el carrito.' };
     if (!Number.isInteger(qty) || qty < 1 || qty > MAX_QTY) return { error: 'Cantidad inválida.' };
     lines.push({ id: product.id, label: product.label, description: product.description, qty, unitPrice: product.price });
   }

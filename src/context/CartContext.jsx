@@ -26,6 +26,17 @@ export function CartProvider({ children }) {
     }
   }, [items]);
 
+  // /?prueba → agrega el producto oculto de prueba ($10) y abre el carrito
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has('prueba')) return;
+    setItems([{ id: 'prueba', qty: 1 }]);
+    setDrawerOpen(true);
+    params.delete('prueba');
+    const qs = params.toString();
+    window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+  }, []);
+
   // Bloquear scroll del body con paneles abiertos
   useEffect(() => {
     const locked = drawerOpen || checkoutOpen;

@@ -69,7 +69,23 @@ export const PRODUCTS = [
   },
 ];
 
-export const PRODUCT_MAP = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
+/**
+ * Producto oculto para probar pagos reales con montos chicos.
+ * No aparece en la web: se agrega al carrito entrando a /?prueba
+ * y el server sólo lo acepta si ENABLE_TEST_PRODUCT=true. Desactivar después de probar.
+ */
+export const TEST_PRODUCT = {
+  id: 'prueba',
+  label: 'PRUEBA DE PAGO',
+  price: 10,
+  badge: null,
+  description: 'Producto de prueba — no se envía.',
+  includes: [],
+  highlight: false,
+  hidden: true,
+};
+
+export const PRODUCT_MAP = Object.fromEntries([...PRODUCTS, TEST_PRODUCT].map((p) => [p.id, p]));
 
 export const MAX_QTY = 10;
 
