@@ -27,6 +27,9 @@ Repo: https://github.com/NicoDeF/Carmotion
 ## Pagos con tarjeta (Payway)
 - Cuotas: 1 y 3 sin interés, 6 con 20% de recargo (`INSTALLMENTS` / `INSTALLMENT_SURCHARGE` en `products.js`); el recargo se cobra en el server
 - Sandbox: `developers.decidir.com`; Cybersource exige `fraud_detection` y `customer_id` no puede ser un email
+- Aviso de cada venta (`notifyOrder` en `api/_lib/order.js`): mail por SMTP (`SMTP_*`, `ORDER_EMAIL_TO`) y WhatsApp por CallMeBot (`WHATSAPP_NOTIFY_PHONE`, `CALLMEBOT_APIKEY`); los dos son opcionales y nunca frenan la venta
+- Envío e instalación NO están incluidos en el precio: se aclara en precios, carrito y checkout con link a WhatsApp para consultar
+- El mecanismo es con **amortiguadores**, no hidráulico
 - Pendiente producción: script de device fingerprint en el navegador (TODO en `api/checkout.js`), variables en Vercel, claves productivas
 
 ## Diseño

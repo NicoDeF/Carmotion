@@ -15,7 +15,7 @@ const HowItWorksRolex = () => {
     {
       number: 'II',
       title: 'DESPLEGAR',
-      description: 'El sistema hidráulico despliega el cobertor en segundos, sin esfuerzo.',
+      description: 'El sistema con amortiguadores despliega el cobertor en segundos, sin esfuerzo.',
       image: '/images/opt/_MG_3347_1-2400.webp',
     },
     {

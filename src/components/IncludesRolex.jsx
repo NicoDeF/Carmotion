@@ -26,7 +26,7 @@ const includes = [
   },
   {
     number: '03',
-    title: 'SISTEMA HIDRÁULICO',
+    title: 'SISTEMA CON AMORTIGUADORES',
     subtitle: 'Apertura Sin Esfuerzo',
     description: 'Mecanismo suave y preciso para abrir y cerrar en segundos.',
     icon: (

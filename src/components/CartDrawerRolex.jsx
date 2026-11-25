@@ -95,6 +95,11 @@ const CartDrawerRolex = () => {
             {/* Footer */}
             {lines.length > 0 && (
               <div className="px-6 md:px-8 py-6 border-t border-white/[0.06]">
+                <div className="mb-5 border px-4 py-3 text-[11px] leading-relaxed text-white/75 font-body" style={{ borderColor: '#C9A84C55', background: '#C9A84C0d' }}>
+                  <span className="font-mono tracking-[0.2em] text-[10px]" style={{ color: '#C9A84C' }}>ENVÍO E INSTALACIÓN</span><br />
+                  No están incluidos en el precio. Los ofrecemos aparte:{' '}
+                  <a href="https://wa.me/5491171217804?text=Hola%2C%20quiero%20consultar%20por%20env%C3%ADo%20e%20instalaci%C3%B3n" target="_blank" rel="noopener noreferrer" className="underline decoration-dotted hover:text-white">consultanos por WhatsApp</a>.
+                </div>
                 <div className="flex justify-between items-baseline mb-6">
                   <span className="text-[10px] tracking-[0.4em] text-white/60 font-mono">TOTAL</span>
                   <span className="text-white text-2xl font-light">

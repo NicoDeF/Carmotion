@@ -45,6 +45,10 @@ const PricingRolex = () => {
             10% de descuento pagando en efectivo.<br />
             Tarjeta hasta 3 cuotas sin interés — todos los medios aceptados.
           </p>
+          <p className="mt-4 text-[10px] tracking-[0.25em] font-mono uppercase" style={{ color: '#C9A84C' }}>
+            Envío e instalación no incluidos · se cotizan aparte —{' '}
+            <a href="https://wa.me/5491171217804?text=Hola%2C%20quiero%20consultar%20por%20env%C3%ADo%20e%20instalaci%C3%B3n" target="_blank" rel="noopener noreferrer" className="underline decoration-dotted hover:text-white">consultar</a>
+          </p>
         </motion.div>
 
         {/* Cards */}

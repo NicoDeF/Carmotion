@@ -60,6 +60,8 @@ export async function notifyOrder({ orderId, provider, paymentId, linesText, tot
 
   console.log('\n[ORDER]\n' + summary + '\n');
 
+  await notifyWhatsApp(summary);
+
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, ORDER_EMAIL_TO, EMAIL_USER, EMAIL_PASS } = process.env;
   let transportOpts;
   let to = ORDER_EMAIL_TO;
@@ -90,5 +92,23 @@ export async function notifyOrder({ orderId, provider, paymentId, linesText, tot
     });
   } catch (err) {
     console.error('[ORDER] No se pudo enviar el mail del pedido:', err.message);
+  }
+}
+
+// Aviso de venta por WhatsApp al vendedor vía CallMeBot. Opcional: si faltan
+// WHATSAPP_NOTIFY_PHONE / CALLMEBOT_APIKEY no hace nada. Nunca rompe la venta.
+async function notifyWhatsApp(text) {
+  const { WHATSAPP_NOTIFY_PHONE, CALLMEBOT_APIKEY } = process.env;
+  if (!WHATSAPP_NOTIFY_PHONE || !CALLMEBOT_APIKEY) return;
+  try {
+    const url = 'https://api.callmebot.com/whatsapp.php?' + new URLSearchParams({
+      phone: WHATSAPP_NOTIFY_PHONE,
+      apikey: CALLMEBOT_APIKEY,
+      text: 'NUEVA VENTA CARMOTION\n' + text,
+    });
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) console.error('[ORDER] Falló el aviso por WhatsApp:', res.status);
+  } catch (err) {
+    console.error('[ORDER] No se pudo enviar el WhatsApp del pedido:', err.message);
   }
 }

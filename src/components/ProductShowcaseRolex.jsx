@@ -18,8 +18,8 @@ const ProductShowcaseRolex = () => {
       number: '03',
       },
     {
-      title: 'SISTEMA HIDRAULICO',
-      description: 'Gracias a su mecanismo hidráulico, la apertura y el cierre se realizan de manera rápida y sencilla, sin necesidad de esfuerzo manual.',
+      title: 'SISTEMA CON AMORTIGUADORES',
+      description: 'Gracias a sus amortiguadores, la apertura y el cierre se realizan de manera rápida y sencilla, sin necesidad de esfuerzo manual.',
       number: '04',
     },
     {

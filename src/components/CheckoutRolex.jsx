@@ -337,8 +337,16 @@ const CheckoutRolex = () => {
                 </ul>
                 <div className="h-px bg-white/[0.08] mb-4" />
                 <div className="flex justify-between text-sm text-gray-400 font-body mb-2">
-                  <span>Envío</span><span>A coordinar</span>
+                  <span>Envío</span><span>No incluido · a coordinar</span>
                 </div>
+                <div className="flex justify-between text-sm text-gray-400 font-body mb-2">
+                  <span>Instalación</span><span>No incluida · a coordinar</span>
+                </div>
+                <p className="text-[11px] leading-relaxed text-white/60 font-body mt-3">
+                  Ofrecemos envío e instalación con costo aparte.{' '}
+                  <a href="https://wa.me/5491171217804?text=Hola%2C%20quiero%20consultar%20por%20env%C3%ADo%20e%20instalaci%C3%B3n" target="_blank" rel="noopener noreferrer" className="underline decoration-dotted hover:text-white" style={{ color: '#C9A84C' }}>Consultanos</a>{' '}
+                  y te pasamos el valor según tu zona.
+                </p>
                 <div className="flex justify-between items-baseline mt-4">
                   <span className="text-[10px] tracking-[0.4em] text-white/60 font-mono">TOTAL</span>
                   <span className="text-white text-2xl font-light">${formatARS(shownTotal)}</span>
