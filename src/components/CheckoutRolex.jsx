@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { startDeviceFingerprint, resetDeviceFingerprint } from '../utils/deviceFingerprint';
 import { formatARS, PAYMENT_METHODS, INSTALLMENTS, totalWithInstallments, installmentLabel } from '../data/products';
 
 /**
@@ -55,6 +56,16 @@ const CheckoutRolex = () => {
   const cardTotal = totalWithInstallments(total, Number(installments)); // incluye recargo por cuotas
   const shownTotal = provider === 'mp' ? total : cardTotal;
 
+  // Antifraude Payway: el fingerprint se carga apenas elige tarjeta, así tiene
+  // tiempo de juntar datos mientras completa el formulario.
+  const deviceIdRef = useRef('');
+  useEffect(() => {
+    if (checkoutOpen && provider === 'card') deviceIdRef.current = startDeviceFingerprint();
+  }, [checkoutOpen, provider]);
+  useEffect(() => {
+    if (!checkoutOpen) { resetDeviceFingerprint(); deviceIdRef.current = ''; }
+  }, [checkoutOpen]);
+
   const handleClose = () => {
     if (phase === 'processing') return;
     closeCheckout();
@@ -102,6 +113,7 @@ const CheckoutRolex = () => {
           paymentMethodId: Number(method),
           installments: Number(installments),
           customer,
+          deviceId: deviceIdRef.current || startDeviceFingerprint(),
         }),
       });
       const data = await r.json().catch(() => ({}));

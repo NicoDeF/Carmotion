@@ -30,7 +30,9 @@ Repo: https://github.com/NicoDeF/Carmotion
 - Aviso de cada venta (`notifyOrder` en `api/_lib/order.js`): mail por SMTP (`SMTP_*`, `ORDER_EMAIL_TO`) y WhatsApp por CallMeBot (`WHATSAPP_NOTIFY_PHONE`, `CALLMEBOT_APIKEY`); los dos son opcionales y nunca frenan la venta
 - Envío e instalación NO están incluidos en el precio: se aclara en precios, carrito y checkout con link a WhatsApp para consultar
 - El mecanismo es con **amortiguadores**, no hidráulico
-- Pendiente producción: script de device fingerprint en el navegador (TODO en `api/checkout.js`), variables en Vercel, claves productivas
+- Device fingerprint: `src/utils/deviceFingerprint.js` genera el deviceId y carga ThreatMetrix al elegir tarjeta (org_id 1snn5n9w sandbox / k8vif92e prod, confirmar con Payway)
+- Hosting: Vercel (proyecto `carmotion-rolex`, ver `.vercel/`)
+- Pendiente producción: variables en Vercel, claves productivas, mergear a `main`
 
 ## Diseño
 - Negro + dorado `#C9A84C`, títulos `font-display` (Archivo Black), etiquetas `font-mono` con tracking amplio, curva `[0.25, 0.1, 0.25, 1]`

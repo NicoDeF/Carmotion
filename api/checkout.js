@@ -178,9 +178,10 @@ export default async function handler(req, res) {
   if (error) return res.status(400).json({ ok: false, message: error });
 
   order.siteTransactionId = newOrderId();
-  // ID de dispositivo para Cybersource. TODO producción: generarlo en el navegador
-  // con el script de device fingerprint de Payway y mandarlo en el body.
-  const deviceId = str(req.body?.deviceId, 128) || order.siteTransactionId.replace(/\W/g, '');
+  // ID de dispositivo para Cybersource: lo genera el navegador junto con el script
+  // de device fingerprint (src/utils/deviceFingerprint.js). Si no llega, usamos uno propio.
+  const deviceId = str(req.body?.deviceId, 128).replace(/[^A-Za-z0-9_-]/g, '')
+    || order.siteTransactionId.replace(/\W/g, '');
 
   // 1) Tokenizar la tarjeta
   let tokenRes;
